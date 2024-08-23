@@ -5,7 +5,7 @@ While physical business cards are still relevant, incorporating digital business
 
 Example from APP
 
-<img src="https://i.ibb.co/0BPtkqx/test.jpg" alt="Logo da Minha Empresa">
+<img src="https://i.ibb.co/6D9MXCK/teste10.jpg" alt="Logo da Minha Empresa">
 
 
 ## A Flutter project made using:
