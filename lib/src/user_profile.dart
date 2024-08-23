@@ -1,31 +1,98 @@
+import 'package:digital_business/src/card_model.dart';
+import 'package:digital_business/src/http_response.dart';
 import 'package:flutter/material.dart';
 
-class UserProfile extends StatelessWidget {
-  const UserProfile({super.key});
+class UserProfile extends StatefulWidget {
+  @override
+  State<UserProfile> createState() => _UserProfileState();
+}
 
+class _UserProfileState extends State<UserProfile> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: Color.fromARGB(85, 91, 90, 94),
-      body: SingleChildScrollView(
-        child: Column(
-          children: [
-            imageLogo(),
-            bodyInfo(),
-            aboutInfo(),
-          ],
-        ),
+      body: FutureBuilder<List<CardModel>>(
+        future: getUser(),
+        builder: (context, snapshot) {
+          if (snapshot.connectionState == ConnectionState.waiting) {
+            return Center(child: CircularProgressIndicator());
+          } else if (snapshot.hasError) {
+            return Center(child: Text('Erro: ${snapshot.error}'));
+          } else if (snapshot.hasData) {
+            return ListView.builder(
+              itemCount: 1,
+              itemBuilder: (context, index) {
+                return Column(children: [
+                  imageLogo(context, index, snapshot),
+                  SizedBox(
+                    height: 12,
+                  ),
+                  Padding(
+                    padding: const EdgeInsets.only(),
+                    child: Text(
+                        style: TextStyle(color: Colors.white, fontSize: 25),
+                        snapshot.data![index].name),
+                  ),
+                  Padding(
+                    padding: const EdgeInsets.only(
+                      bottom: 7,
+                    ),
+                    child: Text(
+                        style: TextStyle(
+                            color: Color.fromARGB(243, 241, 189, 121),
+                            fontSize: 12.8),
+                        snapshot.data![index].jobArea),
+                  ),
+                  Padding(
+                    padding: const EdgeInsets.only(bottom: 10),
+                    child: Text(
+                        style: TextStyle(
+                            color: Color.fromARGB(245, 245, 245, 245),
+                            fontSize: 10.24),
+                        snapshot.data![index].email),
+                  ),
+                  Padding(padding: EdgeInsets.only(top: 5)),
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      Container(
+                        width: 250,
+                        height: 40,
+                        child: ElevatedButton.icon(
+                          onPressed: () {},
+                          label: Text(
+                              style: TextStyle(color: Colors.black), 'Email'),
+                          icon: Icon(Icons.email),
+                          style: ElevatedButton.styleFrom(
+                            iconColor: Colors.black,
+                            shape: RoundedRectangleBorder(
+                                borderRadius: BorderRadius.circular(10)),
+                          ),
+                        ),
+                      ),
+                    ],
+                  ),
+                  aboutInfo(context, index, snapshot),
+                ]);
+              },
+            );
+          } else {
+            return Center(child: Text('Nenhum dado disponível'));
+          }
+        },
       ),
       bottomNavigationBar: bottomBar(),
     );
   }
 }
 
-Widget imageLogo() {
+Widget imageLogo(
+    BuildContext context, index, AsyncSnapshot<List<CardModel>> snapshot) {
   return Column(
     children: [
       ClipRRect(
-        child: Image.network('https://i.ibb.co/pbk0JM8/Logo.jpg'),
+        child: Image.network(snapshot.data![index].picture),
       ),
     ],
   );
@@ -85,7 +152,8 @@ Widget bodyInfo() {
   );
 }
 
-Widget aboutInfo() {
+Widget aboutInfo(
+    BuildContext context, index, AsyncSnapshot<List<CardModel>> snapshot) {
   return Center(
     child: Padding(
         padding: const EdgeInsets.only(
@@ -106,7 +174,7 @@ Widget aboutInfo() {
             Container(
               width: 250,
               child: Text(
-                'I am a frontend developer with a particular interest in making things simple and automating daily tasks. I try to keep up with security and best practices, and am always looking for new things to learn.',
+                snapshot.data![index].about,
                 style: TextStyle(
                   color: Color.fromARGB(207, 193, 204, 202),
                   fontSize: 10.24,
@@ -117,7 +185,7 @@ Widget aboutInfo() {
               height: 15,
             ),
             Text(
-              'Interest',
+              'Interests',
               style: TextStyle(
                 color: Colors.white,
                 fontSize: 16,
@@ -128,7 +196,7 @@ Widget aboutInfo() {
             Container(
               width: 250,
               child: Text(
-                'Food expert. Music scholar. Reader. Internet fanatic. Bacon buff. Entrepreneur. Travel geek. Pop culture ninja. Coffee fanatic.',
+                snapshot.data![index].interest,
                 style: TextStyle(
                   color: Color.fromARGB(207, 193, 204, 202),
                   fontSize: 10.24,
