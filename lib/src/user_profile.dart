@@ -98,60 +98,6 @@ Widget imageLogo(
   );
 }
 
-Widget bodyInfo() {
-  return SingleChildScrollView(
-    child: Column(
-      children: [
-        SizedBox(
-          height: 12,
-        ),
-        Padding(
-          padding: const EdgeInsets.only(),
-          child: Text(
-              style: TextStyle(color: Colors.white, fontSize: 25),
-              'Laura Smith'),
-        ),
-        Padding(
-          padding: const EdgeInsets.only(
-            bottom: 7,
-          ),
-          child: Text(
-              style: TextStyle(
-                  color: Color.fromARGB(243, 241, 189, 121), fontSize: 12.8),
-              'Frontend Developer'),
-        ),
-        Padding(
-          padding: const EdgeInsets.only(bottom: 10),
-          child: Text(
-              style: TextStyle(
-                  color: Color.fromARGB(245, 245, 245, 245), fontSize: 10.24),
-              'laurasmith.website'),
-        ),
-        Padding(padding: EdgeInsets.only(top: 5)),
-        Row(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: [
-            Container(
-              width: 250,
-              height: 40,
-              child: ElevatedButton.icon(
-                onPressed: () {},
-                label: Text(style: TextStyle(color: Colors.black), 'Email'),
-                icon: Icon(Icons.email),
-                style: ElevatedButton.styleFrom(
-                  iconColor: Colors.black,
-                  shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(18)),
-                ),
-              ),
-            ),
-          ],
-        )
-      ],
-    ),
-  );
-}
-
 Widget aboutInfo(
     BuildContext context, index, AsyncSnapshot<List<CardModel>> snapshot) {
   return Center(
