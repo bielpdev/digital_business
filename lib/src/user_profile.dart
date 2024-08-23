@@ -73,9 +73,8 @@ Widget bodyInfo() {
                 icon: Icon(Icons.email),
                 style: ElevatedButton.styleFrom(
                   iconColor: Colors.black,
-                  side: BorderSide(style: BorderStyle.solid),
-                  shape: BeveledRectangleBorder(
-                      borderRadius: BorderRadius.circular(8)),
+                  shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(18)),
                 ),
               ),
             ),
