@@ -5,24 +5,35 @@ class CardModel {
   final String picture;
   final String about;
   final String interest;
+  final String instagram;
+  final String github;
+  final String facebook;
+  final String twitter;
 
-  CardModel({
-    required this.name,
-    required this.jobArea,
-    required this.email,
-    required this.picture,
-    required this.about,
-    required this.interest,
-  });
+  CardModel(
+      {required this.name,
+      required this.jobArea,
+      required this.email,
+      required this.picture,
+      required this.about,
+      required this.interest,
+      required this.instagram,
+      required this.github,
+      required this.facebook,
+      required this.twitter});
 
   static CardModel fromJson(Map map) {
     return CardModel(
-      name: map['name'],
-      jobArea: map['jobArea'],
-      email: map['email'],
-      picture: map['avatar'],
-      about: map['about'],
-      interest: map['interest'],
+      name: map['name'] ?? '',
+      jobArea: map['jobArea'] ?? '',
+      email: map['email'] ?? '',
+      picture: map['avatar'] ?? '',
+      about: map['about'] ?? '',
+      interest: map['interest'] ?? '',
+      instagram: map['instagram'] ?? '',
+      github: map['github'] ?? '',
+      facebook: map['facebook'] ?? '',
+      twitter: map['twitter'] ?? '',
     );
   }
 
