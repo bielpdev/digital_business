@@ -4,10 +4,10 @@ import 'package:mockito/mockito.dart';
 
 class DioMock extends Mock implements Dio {}
 
-class TodoRepository {
+class BusinessCardRepository {
   Dio dio;
 
-  TodoRepository([Dio? client]) : dio = client ?? Dio();
+  BusinessCardRepository([Dio? client]) : dio = client ?? Dio();
 
   Future<List<CardModel>> getUsertest() async {
     final response = await dio
