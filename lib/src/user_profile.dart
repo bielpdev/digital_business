@@ -244,7 +244,7 @@ class BottomBarWidget extends StatelessWidget {
                 backgroundColor: WidgetStateColor.transparent,
                 padding: const EdgeInsets.only(
                   left: 30,
-                ), // Ajuste o preenchimento conforme necessário
+                ),
               ),
               onPressed: () {},
               child: SvgPicture.asset('lib/icons/Twitter.svg'),
@@ -252,8 +252,7 @@ class BottomBarWidget extends StatelessWidget {
             ElevatedButton(
               style: ElevatedButton.styleFrom(
                 backgroundColor: WidgetStateColor.transparent,
-                padding: const EdgeInsets.only(
-                    left: 30), // Ajuste o preenchimento conforme necessário
+                padding: const EdgeInsets.only(left: 30),
               ),
               onPressed: () => launcherLink(model.instagram),
               child: SvgPicture.asset('lib/icons/Facebook.svg'),
@@ -261,8 +260,7 @@ class BottomBarWidget extends StatelessWidget {
             ElevatedButton(
               style: ElevatedButton.styleFrom(
                 backgroundColor: WidgetStateColor.transparent,
-                padding: const EdgeInsets.only(
-                    left: 30), // Ajuste o preenchimento conforme necessário
+                padding: const EdgeInsets.only(left: 30),
               ),
               onPressed: () => launcherLink(model.instagram),
               child: SvgPicture.asset('lib/icons/Instagram.svg'),
@@ -270,8 +268,7 @@ class BottomBarWidget extends StatelessWidget {
             ElevatedButton(
               style: ElevatedButton.styleFrom(
                 backgroundColor: WidgetStateColor.transparent,
-                padding: const EdgeInsets.only(
-                    left: 30), // Ajuste o preenchimento conforme necessário
+                padding: const EdgeInsets.only(left: 30),
               ),
               onPressed: () {},
               child: SvgPicture.asset('lib/icons/Github.svg'),
@@ -286,8 +283,7 @@ class BottomBarWidget extends StatelessWidget {
 Widget barBottomWidgets(
     BuildContext context, AsyncSnapshot<CardModel> snapshot) {
   if (!snapshot.hasData || snapshot.data == null) {
-    return const SizedBox
-        .shrink(); // Retorna um widget vazio se não houver dados
+    return const SizedBox.shrink();
   }
 
   var model = snapshot.data!;
