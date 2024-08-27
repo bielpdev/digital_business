@@ -10,7 +10,7 @@ import 'http_response_test.mocks.dart';
 
 @GenerateMocks([Dio])
 void main() {
-  group('fetchAlbum', () {
+  group('fetchInfo', () {
     test('deve retornar algum objeto', () async {
       final dio = MockDio();
       final repository = TodoRepository(dio);
@@ -23,7 +23,7 @@ void main() {
           ));
 
       final list = await repository.getUsertest();
-      print(jsonData);
+      print(list[0].about);
     });
   });
 }
