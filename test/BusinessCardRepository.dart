@@ -13,17 +13,19 @@ void main() {
   group('fetchInfo', () {
     test('deve retornar algum objeto', () async {
       final dio = MockDio();
-      final repository = TodoRepository(dio);
+      final repository = BusinessCardRepository(dio);
 
       when(dio.get(any)).thenAnswer((_) async => Response(
             requestOptions: RequestOptions(
                 path:
-                    'https://5d85ccfb1e61af001471bf60.mockapi.io/businessCard/0'),
+                    'https://5d85ccfb1e61af001471bf60.mockapi.io/businessCard/1'),
             data: jsonDecode(jsonData),
           ));
 
       final list = await repository.getUsertest();
-      print(list[0].about);
+      print(list);
+
+      ///  print(list[1].twitter);
     });
   });
 }
