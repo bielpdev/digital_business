@@ -1,24 +1,30 @@
+import 'package:digital_business/src/business_card_repository.dart';
 import 'package:digital_business/src/card_model.dart';
-import 'package:digital_business/src/http_response.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:url_launcher/url_launcher.dart';
 
 class UserProfile extends StatefulWidget {
-  const UserProfile({super.key});
+  final BusinessCardRepository repository;
+  const UserProfile({super.key, required this.repository});
 
   @override
   State<UserProfile> createState() => _UserProfileState();
 }
 
 class _UserProfileState extends State<UserProfile> {
-  final Future<CardModel> _future = getUser();
+  late final Future<CardModel> _future;
+
+  @override
+  void initState() {
+    super.initState();
+    _future = widget.repository.getUser();
+  }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: const Color.fromARGB(85, 91, 90, 94),
+      // backgroundColor: const Color(0xff1A1B21),
       body: FutureBuilder<CardModel>(
         future: _future,
         builder: (context, snapshot) {
@@ -75,7 +81,10 @@ class _UserProfileState extends State<UserProfile> {
                     width: 115,
                     height: 34,
                     child: ElevatedButton.icon(
-                      onPressed: () {},
+                      onPressed: () {
+                        widget.repository.launchLink(
+                            'https://mail.google.com/mail/u/0/#inbox?compose=XBcJlCFWWfhdsPTQclZRJKhqHFfFvWSGtDnmMvhWmjkBRdpQPTSMVXKrpLnGTPmJCSZSCqRxZtFvqfzG');
+                      },
                       label: Text(
                         style: GoogleFonts.inter(color: Colors.black),
                         'Email',
@@ -101,23 +110,25 @@ class _UserProfileState extends State<UserProfile> {
                     child: SizedBox(
                       width: 115,
                       height: 34,
-                      child: ElevatedButton.icon(
-                        onPressed: () {},
-                        label: Text(
-                          style: GoogleFonts.inter(color: Colors.white),
-                          'Linkedin',
-                        ),
-                        icon: SvgPicture.asset('lib/icons/linkedin.svg'),
-                        style: ElevatedButton.styleFrom(
-                          padding: const EdgeInsets.all(5),
-                          iconColor: Colors.black,
-                          backgroundColor: const Color(0xff5093E2),
-                          shape: RoundedRectangleBorder(
-                            side: const BorderSide(
-                              width: 1,
-                              //  color: Color(0xffD1D5DB),
+                      child: GestureDetector(
+                        onTap: () {},
+                        child: ElevatedButton.icon(
+                          onPressed: () {
+                            widget.repository.launchLink(
+                                'https://www.linkedin.com/in/gabriel-charamello-inacio-9538b3227/');
+                          },
+                          label: Text(
+                            'Linkedin',
+                            style: GoogleFonts.inter(color: Colors.white),
+                          ),
+                          icon: SvgPicture.asset('lib/icons/linkedin.svg'),
+                          style: ElevatedButton.styleFrom(
+                            padding: const EdgeInsets.all(5),
+                            iconColor: Colors.black,
+                            backgroundColor: const Color(0xff5093E2),
+                            shape: RoundedRectangleBorder(
+                              borderRadius: BorderRadius.circular(6),
                             ),
-                            borderRadius: BorderRadius.circular(6),
                           ),
                         ),
                       ),
@@ -132,9 +143,10 @@ class _UserProfileState extends State<UserProfile> {
         },
       ),
       bottomNavigationBar: FutureBuilder<CardModel>(
-        future: getUser(),
+        future: _future,
         builder: (context, snapshot) {
-          return barBottomWidgets(context, snapshot);
+          if (!snapshot.hasData) return const SizedBox.shrink();
+          return BottomBarWidget(snapshot.data!, widget.repository);
         },
       ),
     );
@@ -189,21 +201,15 @@ class AboutInfoWidget extends StatelessWidget {
                   ),
                 ),
               ),
-              const SizedBox(
-                height: 15,
+              const SizedBox(height: 15),
+              Text(
+                'Interests',
+                style: GoogleFonts.inter(
+                  color: Colors.white,
+                  fontSize: 16,
+                  fontWeight: FontWeight.w700,
+                ),
               ),
-              Text('Interests',
-                  style: GoogleFonts.inter(
-                    color: Colors.white,
-                    fontSize: 16,
-                    fontWeight: FontWeight.w700,
-                  )
-                  // TextStyle(
-                  //   color: Colors.white,
-                  //   fontSize: 16,
-                  //   fontWeight: FontWeight.w700,
-                  // ),
-                  ),
               const SizedBox(height: 2),
               SizedBox(
                 width: 250,
@@ -215,9 +221,7 @@ class AboutInfoWidget extends StatelessWidget {
                   ),
                 ),
               ),
-              const SizedBox(
-                height: 30,
-              )
+              const SizedBox(height: 30)
             ],
           ),
         ),
@@ -227,113 +231,61 @@ class AboutInfoWidget extends StatelessWidget {
 }
 
 class BottomBarWidget extends StatelessWidget {
-  const BottomBarWidget(this.model, {super.key});
+  const BottomBarWidget(this.model, this.repository, {super.key});
   final CardModel model;
+  final BusinessCardRepository repository;
 
   @override
   Widget build(BuildContext context) {
     return BottomAppBar(
       color: const Color(0xff161619),
       child: Padding(
-        padding: const EdgeInsets.only(right: 40),
+        padding: const EdgeInsets.all(10),
         child: Row(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
-            ElevatedButton(
-              style: ElevatedButton.styleFrom(
-                backgroundColor: WidgetStateColor.transparent,
-                padding: const EdgeInsets.only(
-                  left: 30,
+            if (model.twitter.isNotEmpty)
+              MouseRegion(
+                key: const ValueKey('twitter-button'),
+                cursor: SystemMouseCursors.click,
+                child: GestureDetector(
+                  onTap: () => repository.launchLink(model.twitter),
+                  child: SvgPicture.asset('lib/icons/twitter.svg'),
                 ),
               ),
-              onPressed: () {},
-              child: SvgPicture.asset('lib/icons/Twitter.svg'),
-            ),
-            ElevatedButton(
-              style: ElevatedButton.styleFrom(
-                backgroundColor: WidgetStateColor.transparent,
-                padding: const EdgeInsets.only(left: 30),
+            const Padding(padding: EdgeInsets.all(5)),
+            if (model.facebook.isNotEmpty)
+              MouseRegion(
+                key: const ValueKey('facebook-button'),
+                cursor: SystemMouseCursors.click,
+                child: GestureDetector(
+                  onTap: () => repository.launchLink(model.facebook),
+                  child: SvgPicture.asset('lib/icons/Facebook.svg'),
+                ),
               ),
-              onPressed: () => launcherLink(model.instagram),
-              child: SvgPicture.asset('lib/icons/Facebook.svg'),
-            ),
-            ElevatedButton(
-              style: ElevatedButton.styleFrom(
-                backgroundColor: WidgetStateColor.transparent,
-                padding: const EdgeInsets.only(left: 30),
+            const Padding(padding: EdgeInsets.all(10)),
+            if (model.instagram.isNotEmpty)
+              MouseRegion(
+                key: const ValueKey('instagram-button'),
+                cursor: SystemMouseCursors.click,
+                child: GestureDetector(
+                  onTap: () => repository.launchLink(model.instagram),
+                  child: SvgPicture.asset('lib/icons/Instagram.svg'),
+                ),
               ),
-              onPressed: () => launcherLink(model.instagram),
-              child: SvgPicture.asset('lib/icons/Instagram.svg'),
-            ),
-            ElevatedButton(
-              style: ElevatedButton.styleFrom(
-                backgroundColor: WidgetStateColor.transparent,
-                padding: const EdgeInsets.only(left: 30),
+            const Padding(padding: EdgeInsets.all(10)),
+            if (model.github.isNotEmpty)
+              MouseRegion(
+                key: const ValueKey('github-button'),
+                cursor: SystemMouseCursors.click,
+                child: GestureDetector(
+                  onTap: () => repository.launchLink(model.github),
+                  child: SvgPicture.asset('lib/icons/Github.svg'),
+                ),
               ),
-              onPressed: () {},
-              child: SvgPicture.asset('lib/icons/Github.svg'),
-            ),
           ],
         ),
       ),
     );
   }
-}
-
-Widget barBottomWidgets(
-    BuildContext context, AsyncSnapshot<CardModel> snapshot) {
-  if (!snapshot.hasData || snapshot.data == null) {
-    return const SizedBox.shrink();
-  }
-
-  var model = snapshot.data!;
-  return BottomAppBar(
-    color: const Color(0xff161619),
-    child: Padding(
-      padding: const EdgeInsets.only(right: 40),
-      child: Row(
-        mainAxisAlignment: MainAxisAlignment.center,
-        children: [
-          if (model.twitter.isNotEmpty)
-            ElevatedButton(
-              style: ElevatedButton.styleFrom(
-                backgroundColor: Colors.transparent,
-                padding: const EdgeInsets.only(left: 30),
-              ),
-              onPressed: () {
-                canLaunchUrl(Uri.parse(model.twitter));
-              },
-              child: SvgPicture.asset('lib/icons/Twitter.svg'),
-            ),
-          if (model.facebook.isNotEmpty)
-            ElevatedButton(
-              style: ElevatedButton.styleFrom(
-                backgroundColor: Colors.transparent,
-                padding: const EdgeInsets.only(left: 30),
-              ),
-              onPressed: () => launcherLink(model.facebook),
-              child: SvgPicture.asset('lib/icons/Facebook.svg'),
-            ),
-          if (model.instagram.isNotEmpty)
-            ElevatedButton(
-              style: ElevatedButton.styleFrom(
-                backgroundColor: Colors.transparent,
-                padding: const EdgeInsets.only(left: 30),
-              ),
-              onPressed: () => launcherLink(model.instagram),
-              child: SvgPicture.asset('lib/icons/Instagram.svg'),
-            ),
-          if (model.github.isNotEmpty)
-            ElevatedButton(
-              style: ElevatedButton.styleFrom(
-                backgroundColor: Colors.transparent,
-                padding: const EdgeInsets.only(left: 30),
-              ),
-              onPressed: () => launcherLink(model.github),
-              child: SvgPicture.asset('lib/icons/Github.svg'),
-            ),
-        ],
-      ),
-    ),
-  );
 }

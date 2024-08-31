@@ -3,19 +3,17 @@ import 'dart:convert';
 import 'package:digital_business/src/http_dio.dart';
 import 'package:dio/dio.dart';
 import 'package:flutter_test/flutter_test.dart';
-import 'package:mockito/annotations.dart';
-import 'package:mockito/mockito.dart';
+import 'package:mocktail/mocktail.dart';
 
-import 'BusinessCardRepository.mocks.dart';
+class MockDio extends Mock implements Dio {}
 
-@GenerateMocks([Dio])
 void main() {
   group('fetchInfo', () {
     test('deve retornar algum objeto', () async {
       final dio = MockDio();
       final repository = BusinessCardRepository(dio);
 
-      when(dio.get(any)).thenAnswer((_) async => Response(
+      when(() => dio.get(any())).thenAnswer((_) async => Response(
             requestOptions: RequestOptions(
                 path:
                     'https://5d85ccfb1e61af001471bf60.mockapi.io/businessCard/1'),

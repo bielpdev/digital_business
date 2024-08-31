@@ -1,6 +1,6 @@
 import 'package:digital_business/src/card_model.dart';
 import 'package:dio/dio.dart';
-import 'package:mockito/mockito.dart';
+import 'package:mocktail/mocktail.dart';
 
 class DioMock extends Mock implements Dio {}
 
