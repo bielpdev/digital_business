@@ -8,7 +8,6 @@ import 'package:url_launcher/url_launcher.dart';
 class BusinessCardRepository {
   Future<CardModel> getUser() async {
     var loca = CardModel(
-      id: '0',
       about: '',
       email: '',
       facebook: '',

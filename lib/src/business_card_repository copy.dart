@@ -8,7 +8,6 @@ import 'package:url_launcher/url_launcher.dart';
 class BusinessCardRepository {
   Future<CardModel> getUser() async {
     var loca = CardModel(
-      id: '0',
       about: '',
       email: '',
       facebook: '',
@@ -22,7 +21,7 @@ class BusinessCardRepository {
     );
 
     var baseUrl = 'https://5d85ccfb1e61af001471bf60.mockapi.io/businessCard/';
-    var url = Uri.parse('$baseUrl?id=${loca.id}');
+    var url = Uri.parse('$baseUrl?id=$loca');
     var response = await http.get(url);
 
     // var url =
