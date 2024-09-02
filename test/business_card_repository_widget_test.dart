@@ -19,6 +19,7 @@ void main() {
       final repository = MockBusinessCardRepository();
       // Simular resposta da API
       when(() => repository.getUser()).thenAnswer((_) async => CardModel(
+          id: '0',
           name: 'name',
           jobArea: 'jobArea',
           email: 'email',
@@ -51,6 +52,7 @@ void main() {
       final repository = MockBusinessCardRepository();
       // Simular resposta da API
       when(() => repository.getUser()).thenAnswer((_) async => CardModel(
+          id: '0',
           name: 'name',
           jobArea: 'jobArea',
           email: 'email',
@@ -82,6 +84,7 @@ void main() {
       final repository = MockBusinessCardRepository();
       // Simular resposta da API
       when(() => repository.getUser()).thenAnswer((_) async => CardModel(
+          id: '0',
           name: 'name',
           jobArea: 'jobArea',
           email: 'email',
@@ -123,6 +126,7 @@ void main() {
       final repository = MockBusinessCardRepository();
       // Simular resposta da API
       when(() => repository.getUser()).thenAnswer((_) async => CardModel(
+          id: '',
           name: 'name',
           jobArea: 'jobArea',
           email: 'email',
@@ -155,6 +159,7 @@ void main() {
       final repository = MockBusinessCardRepository();
       // Simular resposta da API
       when(() => repository.getUser()).thenAnswer((_) async => CardModel(
+          id: '0',
           name: 'name',
           jobArea: 'jobArea',
           email: 'email',
@@ -187,6 +192,7 @@ void main() {
       final repository = MockBusinessCardRepository();
       // Simular resposta da API
       when(() => repository.getUser()).thenAnswer((_) async => CardModel(
+          id: '0',
           name: 'name',
           jobArea: 'jobArea',
           email: 'email',
@@ -227,6 +233,7 @@ void main() {
       final repository = MockBusinessCardRepository();
       // Simular resposta da API
       when(() => repository.getUser()).thenAnswer((_) async => CardModel(
+          id: '0',
           name: 'name',
           jobArea: 'jobArea',
           email: 'email',
@@ -264,6 +271,7 @@ void main() {
       final repository = MockBusinessCardRepository();
       // Simular resposta da API
       when(() => repository.getUser()).thenAnswer((_) async => CardModel(
+          id: '0',
           name: 'name',
           jobArea: 'jobArea',
           email: 'email',
@@ -297,6 +305,7 @@ void main() {
       final repository = MockBusinessCardRepository();
       // Simular resposta da API
       when(() => repository.getUser()).thenAnswer((_) async => CardModel(
+          id: '0',
           name: 'name',
           jobArea: 'jobArea',
           email: 'email',
@@ -327,6 +336,7 @@ void main() {
       final repository = MockBusinessCardRepository();
       // Simular resposta da API
       when(() => repository.getUser()).thenAnswer((_) async => CardModel(
+          id: '0',
           name: 'name',
           jobArea: 'jobArea',
           email: 'email',
@@ -363,6 +373,7 @@ void main() {
       final repository = MockBusinessCardRepository();
       // Simular resposta da API
       when(() => repository.getUser()).thenAnswer((_) async => CardModel(
+          id: '0',
           name: 'name',
           jobArea: 'jobArea',
           email: 'email',
@@ -396,6 +407,7 @@ void main() {
       final repository = MockBusinessCardRepository();
       // Simular resposta da API
       when(() => repository.getUser()).thenAnswer((_) async => CardModel(
+          id: '0',
           name: 'name',
           jobArea: 'jobArea',
           email: 'email',

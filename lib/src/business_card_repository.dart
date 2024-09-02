@@ -6,29 +6,15 @@ import 'package:url_launcher/url_launcher.dart';
 
 //TODO: Pesquisar sobre repository pattern
 class BusinessCardRepository {
+  var getCode = Uri.base.queryParameters['userid'];
+
   Future<CardModel> getUser() async {
-    var loca = CardModel(
-      about: '',
-      email: '',
-      facebook: '',
-      github: '',
-      instagram: '',
-      interest: '',
-      jobArea: '',
-      name: '',
-      picture: '',
-      twitter: '',
-    );
+    var defaultId = 0;
+    var userid = getCode ?? defaultId;
+    var url = Uri.parse(
+        'https://5d85ccfb1e61af001471bf60.mockapi.io/businessCard/$userid');
 
-    http.Response response = await http.get(Uri.parse(
-            'https://5d85ccfb1e61af001471bf60.mockapi.io/businessCard/$queyParams')
-        .replace(queryParameters: queyParams));
-
-    // var url =
-    //      Uri.parse('https://5d85ccfb1e61af001471bf60.mockapi.io/businessCard/');
-    // http.Response response = await http.get(
-    //     Uri.parse('https://5d85ccfb1e61af001471bf60.mockapi.io/businessCard/')
-    //       .replace(queryParameters: url));
+    var response = await http.get(url);
     if (response.statusCode == 200) {
       var x = jsonDecode(response.body);
       return CardModel.fromJson(x);
@@ -36,8 +22,6 @@ class BusinessCardRepository {
       throw Exception('Erro ao receber os dados');
     }
   }
-
-  final Map<String, dynamic> queyParams = {"id": "0"};
 
   Future<void> launchLink(String url) async {
     if (await canLaunchUrl(Uri.parse(url))) {

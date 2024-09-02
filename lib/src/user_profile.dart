@@ -6,6 +6,7 @@ import 'package:google_fonts/google_fonts.dart';
 
 class UserProfile extends StatefulWidget {
   final BusinessCardRepository repository;
+
   const UserProfile({super.key, required this.repository});
 
   @override
@@ -24,7 +25,7 @@ class _UserProfileState extends State<UserProfile> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      // backgroundColor: const Color(0xff1A1B21),
+      backgroundColor: const Color(0xff1A1B21),
       body: FutureBuilder<CardModel>(
         future: _future,
         builder: (context, snapshot) {
