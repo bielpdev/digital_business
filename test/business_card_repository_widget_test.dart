@@ -10,6 +10,117 @@ class MockBusinessCardRepository extends Mock
     implements BusinessCardRepository {}
 
 void main() {
+  //Linkedin ---------------------------------------------- TESTES
+
+  testWidgets(
+      'quando a api NÃO retorna o link, o botão do GitHub NÃO é apresentado na tela',
+      (tester) async {
+    await mockNetworkImages(() async {
+      final repository = MockBusinessCardRepository();
+      // Simular resposta da API
+      when(() => repository.getUser()).thenAnswer((_) async => CardModel(
+          linkedin: '',
+          id: 'id',
+          name: 'name',
+          jobArea: 'jobArea',
+          email: 'email',
+          picture: 'picture',
+          about: 'about',
+          interest: 'interest',
+          instagram: 'instagram',
+          github: 'github',
+          facebook: 'facebook',
+          twitter: 'twitter'));
+
+      // Carregar tela UserProfile
+      await tester.pumpWidget(MaterialApp(
+        home: UserProfile(repository: repository),
+      ));
+
+      // expect(find.byType(CircularProgressIndicator), findsOne);
+
+      // Espera carregar os dados mockados (sair do loading)
+      await tester.pump();
+
+      //Verificar se botão do twitter está visível
+      expect(find.byKey(const ValueKey('linkedin-button')), findsNothing);
+    });
+  });
+
+  testWidgets(
+      'quando a api retorna o link, o botão do linkedin é apresentado na tela',
+      (tester) async {
+    await mockNetworkImages(() async {
+      final repository = MockBusinessCardRepository();
+      // Simular resposta da API
+      when(() => repository.getUser()).thenAnswer((_) async => CardModel(
+          linkedin: 'linkedin',
+          id: 'id',
+          name: 'name',
+          jobArea: 'jobArea',
+          email: 'email',
+          picture: 'picture',
+          about: 'about',
+          interest: 'interest',
+          instagram: 'instagram',
+          github: 'github',
+          facebook: 'facebook',
+          twitter: 'twitter'));
+
+      // Carregar tela UserProfile
+      await tester.pumpWidget(MaterialApp(
+        home: UserProfile(repository: repository),
+      ));
+
+      // expect(find.byType(CircularProgressIndicator), findsOne);
+
+      // Espera carregar os dados mockados (sair do loading)
+      await tester.pump();
+
+      //Verificar se botão do twitter está visível
+      expect(find.byKey(const ValueKey('linkedin-button')), findsOne);
+    });
+  });
+
+  testWidgets('quando clicar no botão do linkedin, abre a URL', (tester) async {
+    await mockNetworkImages(() async {
+      final repository = MockBusinessCardRepository();
+      // Simular resposta da API
+      when(() => repository.getUser()).thenAnswer((_) async => CardModel(
+          linkedin:
+              'https://www.linkedin.com/in/gabriel-charamello-inacio-9538b3227',
+          id: 'id',
+          name: 'name',
+          jobArea: 'jobArea',
+          email: 'email',
+          picture: 'picture',
+          about: 'about',
+          interest: 'interest',
+          instagram: 'instagram',
+          github: 'github',
+          facebook: 'facebook',
+          twitter: 'twitter'));
+
+      when(() => repository.launchLink(any())).thenAnswer((_) async {});
+
+      // Carregar tela UserProfile
+      await tester.pumpWidget(MaterialApp(
+        home: UserProfile(repository: repository),
+      ));
+
+      // Espera carregar os dados mockados (sair do loading)
+      await tester.pump();
+
+      // Aperta o botão do twitter
+      await tester.tap(find.byKey(const ValueKey('linkedin-button')));
+
+      // Verifica se abriu a url
+      verify(() => repository.launchLink(
+              'https://www.linkedin.com/in/gabriel-charamello-inacio-9538b3227'))
+          .called(1);
+    });
+  });
+
   //GitHub ---------------------------------------------- TESTES
 
   testWidgets(
@@ -19,7 +130,8 @@ void main() {
       final repository = MockBusinessCardRepository();
       // Simular resposta da API
       when(() => repository.getUser()).thenAnswer((_) async => CardModel(
-          id: '0',
+          linkedin: '',
+          id: 'id',
           name: 'name',
           jobArea: 'jobArea',
           email: 'email',
@@ -52,6 +164,7 @@ void main() {
       final repository = MockBusinessCardRepository();
       // Simular resposta da API
       when(() => repository.getUser()).thenAnswer((_) async => CardModel(
+          linkedin: '',
           id: '0',
           name: 'name',
           jobArea: 'jobArea',
@@ -84,6 +197,7 @@ void main() {
       final repository = MockBusinessCardRepository();
       // Simular resposta da API
       when(() => repository.getUser()).thenAnswer((_) async => CardModel(
+          linkedin: '',
           id: '0',
           name: 'name',
           jobArea: 'jobArea',
@@ -126,6 +240,7 @@ void main() {
       final repository = MockBusinessCardRepository();
       // Simular resposta da API
       when(() => repository.getUser()).thenAnswer((_) async => CardModel(
+          linkedin: '',
           id: '',
           name: 'name',
           jobArea: 'jobArea',
@@ -159,6 +274,7 @@ void main() {
       final repository = MockBusinessCardRepository();
       // Simular resposta da API
       when(() => repository.getUser()).thenAnswer((_) async => CardModel(
+          linkedin: '',
           id: '0',
           name: 'name',
           jobArea: 'jobArea',
@@ -192,6 +308,7 @@ void main() {
       final repository = MockBusinessCardRepository();
       // Simular resposta da API
       when(() => repository.getUser()).thenAnswer((_) async => CardModel(
+          linkedin: '',
           id: '0',
           name: 'name',
           jobArea: 'jobArea',
@@ -233,6 +350,7 @@ void main() {
       final repository = MockBusinessCardRepository();
       // Simular resposta da API
       when(() => repository.getUser()).thenAnswer((_) async => CardModel(
+          linkedin: '',
           id: '0',
           name: 'name',
           jobArea: 'jobArea',
@@ -271,6 +389,7 @@ void main() {
       final repository = MockBusinessCardRepository();
       // Simular resposta da API
       when(() => repository.getUser()).thenAnswer((_) async => CardModel(
+          linkedin: '',
           id: '0',
           name: 'name',
           jobArea: 'jobArea',
@@ -305,6 +424,7 @@ void main() {
       final repository = MockBusinessCardRepository();
       // Simular resposta da API
       when(() => repository.getUser()).thenAnswer((_) async => CardModel(
+          linkedin: '',
           id: '0',
           name: 'name',
           jobArea: 'jobArea',
@@ -336,6 +456,7 @@ void main() {
       final repository = MockBusinessCardRepository();
       // Simular resposta da API
       when(() => repository.getUser()).thenAnswer((_) async => CardModel(
+          linkedin: '',
           id: '0',
           name: 'name',
           jobArea: 'jobArea',
@@ -373,6 +494,7 @@ void main() {
       final repository = MockBusinessCardRepository();
       // Simular resposta da API
       when(() => repository.getUser()).thenAnswer((_) async => CardModel(
+          linkedin: '',
           id: '0',
           name: 'name',
           jobArea: 'jobArea',
@@ -407,6 +529,7 @@ void main() {
       final repository = MockBusinessCardRepository();
       // Simular resposta da API
       when(() => repository.getUser()).thenAnswer((_) async => CardModel(
+          linkedin: '',
           id: '0',
           name: 'name',
           jobArea: 'jobArea',

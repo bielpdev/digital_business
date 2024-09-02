@@ -115,8 +115,7 @@ class _UserProfileState extends State<UserProfile> {
                         onTap: () {},
                         child: ElevatedButton.icon(
                           onPressed: () {
-                            widget.repository.launchLink(
-                                'https://www.linkedin.com/in/gabriel-charamello-inacio-9538b3227/');
+                            widget.repository.launchLink(model.linkedin);
                           },
                           label: Text(
                             'Linkedin',
@@ -272,6 +271,16 @@ class BottomBarWidget extends StatelessWidget {
                 child: GestureDetector(
                   onTap: () => repository.launchLink(model.instagram),
                   child: SvgPicture.asset('lib/icons/Instagram.svg'),
+                ),
+              ),
+            const Padding(padding: EdgeInsets.all(10)),
+            if (model.linkedin.isNotEmpty)
+              MouseRegion(
+                key: const ValueKey('linkedin-button'),
+                cursor: SystemMouseCursors.click,
+                child: GestureDetector(
+                  onTap: () => repository.launchLink(model.linkedin),
+                  child: SvgPicture.asset('lib/icons/LinkedinIcon.svg'),
                 ),
               ),
             const Padding(padding: EdgeInsets.all(10)),

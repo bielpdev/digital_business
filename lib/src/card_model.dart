@@ -10,6 +10,7 @@ class CardModel {
   final String facebook;
   final String twitter;
   final String id;
+  final String linkedin;
 
   CardModel({
     required this.name,
@@ -23,6 +24,7 @@ class CardModel {
     required this.facebook,
     required this.twitter,
     required this.id,
+    required this.linkedin,
   });
 
   static CardModel fromJson(Map map) {
@@ -37,7 +39,8 @@ class CardModel {
         github: map['github'] ?? '',
         facebook: map['facebook'] ?? '',
         twitter: map['twitter'] ?? '',
-        id: map['id'] ?? '');
+        id: map['id'] ?? '',
+        linkedin: map['linkedin'] ?? '');
   }
 
   static List<CardModel> fromJsonList(List list) {
