@@ -164,13 +164,24 @@ class ImageLogoWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return ClipRRect(
-      borderRadius: const BorderRadius.only(
-          topRight: Radius.circular(10), topLeft: Radius.circular(10)),
-      child: Column(
-        children: [
-          Image.network(model.picture),
-        ],
+    return SizedBox(
+      width: MediaQuery.of(context).size.width,
+      child: ClipRRect(
+        borderRadius: const BorderRadius.only(
+            topRight: Radius.circular(10), topLeft: Radius.circular(10)),
+        child: Column(
+          children: [
+            AspectRatio(
+              aspectRatio: 1.1,
+              child: Image.network(
+                fit: BoxFit.cover,
+                model.picture,
+                width: 317,
+                height: 317,
+              ),
+            ),
+          ],
+        ),
       ),
     );
   }
