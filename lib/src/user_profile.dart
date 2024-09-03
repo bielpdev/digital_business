@@ -253,8 +253,8 @@ class BottomBarWidget extends StatelessWidget {
                   child: SvgPicture.asset('lib/icons/twitter.svg'),
                 ),
               ),
-            const Padding(padding: EdgeInsets.all(5)),
-            if (model.facebook.isNotEmpty)
+            if (model.facebook.isNotEmpty) ...[
+              const Padding(padding: EdgeInsets.all(10)),
               MouseRegion(
                 key: const ValueKey('facebook-button'),
                 cursor: SystemMouseCursors.click,
@@ -263,8 +263,9 @@ class BottomBarWidget extends StatelessWidget {
                   child: SvgPicture.asset('lib/icons/Facebook.svg'),
                 ),
               ),
-            const Padding(padding: EdgeInsets.all(10)),
-            if (model.instagram.isNotEmpty)
+            ],
+            if (model.instagram.isNotEmpty) ...[
+              const Padding(padding: EdgeInsets.all(10)),
               MouseRegion(
                 key: const ValueKey('instagram-button'),
                 cursor: SystemMouseCursors.click,
@@ -273,8 +274,9 @@ class BottomBarWidget extends StatelessWidget {
                   child: SvgPicture.asset('lib/icons/Instagram.svg'),
                 ),
               ),
-            const Padding(padding: EdgeInsets.all(10)),
-            if (model.linkedin.isNotEmpty)
+            ],
+            if (model.linkedin.isNotEmpty) ...[
+              const Padding(padding: EdgeInsets.all(10)),
               MouseRegion(
                 key: const ValueKey('linkedin-button'),
                 cursor: SystemMouseCursors.click,
@@ -283,8 +285,9 @@ class BottomBarWidget extends StatelessWidget {
                   child: SvgPicture.asset('lib/icons/LinkedinIcon.svg'),
                 ),
               ),
-            const Padding(padding: EdgeInsets.all(10)),
-            if (model.github.isNotEmpty)
+            ],
+            if (model.github.isNotEmpty) ...[
+              const Padding(padding: EdgeInsets.all(10)),
               MouseRegion(
                 key: const ValueKey('github-button'),
                 cursor: SystemMouseCursors.click,
@@ -293,6 +296,7 @@ class BottomBarWidget extends StatelessWidget {
                   child: SvgPicture.asset('lib/icons/Github.svg'),
                 ),
               ),
+            ],
           ],
         ),
       ),
