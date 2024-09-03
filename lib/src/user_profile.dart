@@ -165,16 +165,11 @@ class ImageLogoWidget extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return ClipRRect(
-      borderRadius: BorderRadius.circular(10.0),
+      borderRadius: const BorderRadius.only(
+          topRight: Radius.circular(10), topLeft: Radius.circular(10)),
       child: Column(
         children: [
-          Container(
-            decoration: const BoxDecoration(
-                border: Border(bottom: BorderSide(width: 10))),
-            child: ClipRRect(
-              child: Image.network(model.picture),
-            ),
-          ),
+          Image.network(model.picture),
         ],
       ),
     );
