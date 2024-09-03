@@ -53,6 +53,9 @@ class _UserProfileState extends State<UserProfile> {
                   model.name,
                 ),
               ),
+              const SizedBox(
+                height: 1,
+              ),
               Padding(
                 padding: const EdgeInsets.only(bottom: 7),
                 child: Text(
@@ -63,6 +66,9 @@ class _UserProfileState extends State<UserProfile> {
                     fontWeight: FontWeight.w400,
                   ),
                 ),
+              ),
+              const SizedBox(
+                height: 5,
               ),
               Padding(
                 padding: const EdgeInsets.only(bottom: 10),
