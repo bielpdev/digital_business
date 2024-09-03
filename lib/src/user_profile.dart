@@ -162,12 +162,19 @@ class ImageLogoWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Column(
-      children: [
-        ClipRRect(
-          child: Image.network(model.picture),
-        ),
-      ],
+    return ClipRRect(
+      borderRadius: BorderRadius.circular(10.0),
+      child: Column(
+        children: [
+          Container(
+            decoration: const BoxDecoration(
+                border: Border(bottom: BorderSide(width: 10))),
+            child: ClipRRect(
+              child: Image.network(model.picture),
+            ),
+          ),
+        ],
+      ),
     );
   }
 }
