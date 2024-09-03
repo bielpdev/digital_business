@@ -39,109 +39,111 @@ class _UserProfileState extends State<UserProfile> {
             return Center(child: Text('Erro: ${snapshot.error}'));
           } else {
             var model = snapshot.data!;
-            return Column(children: [
-              ImageLogoWidget(model),
-              const SizedBox(height: 12),
-              Padding(
-                padding: const EdgeInsets.only(),
-                child: Text(
-                  style: GoogleFonts.inter(
-                    color: Colors.white,
-                    fontSize: 25,
-                    fontWeight: FontWeight.w700,
-                  ),
-                  model.name,
-                ),
-              ),
-              Padding(
-                padding: const EdgeInsets.only(bottom: 7),
-                child: Text(
-                  model.jobArea,
-                  style: GoogleFonts.inter(
-                    color: const Color(0xffF3BF99),
-                    fontSize: 12.8,
-                    fontWeight: FontWeight.w400,
+            return SingleChildScrollView(
+              child: Column(children: [
+                ImageLogoWidget(model),
+                const SizedBox(height: 12),
+                Padding(
+                  padding: const EdgeInsets.only(),
+                  child: Text(
+                    style: GoogleFonts.inter(
+                      color: Colors.white,
+                      fontSize: 25,
+                      fontWeight: FontWeight.w700,
+                    ),
+                    model.name,
                   ),
                 ),
-              ),
-              const SizedBox(
-                height: 5,
-              ),
-              Padding(
-                padding: const EdgeInsets.only(bottom: 10),
-                child: Text(
-                  model.email,
-                  style: GoogleFonts.inter(
-                    color: const Color(0xffF5F5F5),
-                    fontSize: 10.24,
+                Padding(
+                  padding: const EdgeInsets.only(bottom: 7),
+                  child: Text(
+                    model.jobArea,
+                    style: GoogleFonts.inter(
+                      color: const Color(0xffF3BF99),
+                      fontSize: 12.8,
+                      fontWeight: FontWeight.w400,
+                    ),
                   ),
                 ),
-              ),
-              const Padding(padding: EdgeInsets.only(top: 5)),
-              Row(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  SizedBox(
-                    width: 115,
-                    height: 34,
-                    child: ElevatedButton.icon(
-                      onPressed: () {
-                        widget.repository.launchLink(
-                            'https://mail.google.com/mail/u/0/#inbox?compose=XBcJlCFWWfhdsPTQclZRJKhqHFfFvWSGtDnmMvhWmjkBRdpQPTSMVXKrpLnGTPmJCSZSCqRxZtFvqfzG');
-                      },
-                      label: Text(
-                        style: GoogleFonts.inter(color: Colors.black),
-                        'Email',
-                      ),
-                      icon: Image.asset('lib/icons/Icon (2).png'),
-                      //   icon: Image.network('https://i.ibb.co/4FJtJwX/ae.jpg'),
-                      style: ElevatedButton.styleFrom(
-                        iconColor: Colors.blue,
-                        backgroundColor: Colors.white,
-                        shape: RoundedRectangleBorder(
-                          side: const BorderSide(
-                            width: 1,
-                            color: Color(0xffD1D5DB),
+                const SizedBox(
+                  height: 5,
+                ),
+                Padding(
+                  padding: const EdgeInsets.only(bottom: 10),
+                  child: Text(
+                    model.email,
+                    style: GoogleFonts.inter(
+                      color: const Color(0xffF5F5F5),
+                      fontSize: 10.24,
+                    ),
+                  ),
+                ),
+                const Padding(padding: EdgeInsets.only(top: 5)),
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    SizedBox(
+                      width: 115,
+                      height: 34,
+                      child: ElevatedButton.icon(
+                        onPressed: () {
+                          widget.repository.launchLink(
+                              'https://mail.google.com/mail/u/0/#inbox?compose=XBcJlCFWWfhdsPTQclZRJKhqHFfFvWSGtDnmMvhWmjkBRdpQPTSMVXKrpLnGTPmJCSZSCqRxZtFvqfzG');
+                        },
+                        label: Text(
+                          style: GoogleFonts.inter(color: Colors.black),
+                          'Email',
+                        ),
+                        icon: Image.asset('lib/icons/Icon (2).png'),
+                        //   icon: Image.network('https://i.ibb.co/4FJtJwX/ae.jpg'),
+                        style: ElevatedButton.styleFrom(
+                          iconColor: Colors.blue,
+                          backgroundColor: Colors.white,
+                          shape: RoundedRectangleBorder(
+                            side: const BorderSide(
+                              width: 1,
+                              color: Color(0xffD1D5DB),
+                            ),
+                            borderRadius: BorderRadius.circular(6),
                           ),
-                          borderRadius: BorderRadius.circular(6),
                         ),
                       ),
                     ),
-                  ),
-                  const Padding(padding: EdgeInsets.all(12)),
-                  SizedBox(
-                    height: 36,
-                    child: SizedBox(
-                      width: 115,
-                      height: 34,
-                      child: GestureDetector(
-                        onTap: () {},
-                        child: ElevatedButton.icon(
-                          onPressed: () {
-                            widget.repository.launchLink(model.linkedin);
-                          },
-                          label: Text(
-                            'Linkedin',
-                            style: GoogleFonts.inter(color: Colors.white),
-                          ),
-                          icon: SvgPicture.asset('lib/icons/linkedin.svg'),
-                          style: ElevatedButton.styleFrom(
-                            padding: const EdgeInsets.all(5),
-                            iconColor: Colors.black,
-                            backgroundColor: const Color(0xff5093E2),
-                            shape: RoundedRectangleBorder(
-                              borderRadius: BorderRadius.circular(6),
+                    const Padding(padding: EdgeInsets.all(12)),
+                    SizedBox(
+                      height: 36,
+                      child: SizedBox(
+                        width: 115,
+                        height: 34,
+                        child: GestureDetector(
+                          onTap: () {},
+                          child: ElevatedButton.icon(
+                            onPressed: () {
+                              widget.repository.launchLink(model.linkedin);
+                            },
+                            label: Text(
+                              'Linkedin',
+                              style: GoogleFonts.inter(color: Colors.white),
+                            ),
+                            icon: SvgPicture.asset('lib/icons/linkedin.svg'),
+                            style: ElevatedButton.styleFrom(
+                              padding: const EdgeInsets.all(5),
+                              iconColor: Colors.black,
+                              backgroundColor: const Color(0xff5093E2),
+                              shape: RoundedRectangleBorder(
+                                borderRadius: BorderRadius.circular(6),
+                              ),
                             ),
                           ),
                         ),
                       ),
                     ),
-                  ),
-                ],
-              ),
-              AboutInfoWidget(model),
-              //   BottomBarWidget(model),
-            ]);
+                  ],
+                ),
+                AboutInfoWidget(model),
+                //   BottomBarWidget(model),
+              ]),
+            );
           }
         },
       ),

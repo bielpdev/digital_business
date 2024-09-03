@@ -11,7 +11,40 @@ class MockBusinessCardRepository extends Mock
 
 void main() {
   //Linkedin ---------------------------------------------- TESTES
+  testWidgets('test do bielzera', (tester) async {
+    await mockNetworkImages(() async {
+      final repository = MockBusinessCardRepository();
+      // Simular resposta da API
+      when(() => repository.getUser()).thenAnswer((_) async => CardModel(
+          linkedin: '',
+          id: 'id',
+          name: 'name',
+          jobArea: 'jobArea',
+          email: 'email',
+          picture: 'picture',
+          about: 'about',
+          interest: 'interest',
+          instagram: 'instagram',
+          github: 'github',
+          facebook: 'facebook',
+          twitter: 'twitter'));
 
+      // Carregar tela UserProfile
+      await tester.pumpWidget(MaterialApp(
+        home: UserProfile(
+          repository: repository,
+        ),
+      ));
+
+      // expect(find.byType(CircularProgressIndicator), findsOne);
+
+      // Espera carregar os dados mockados (sair do loading)
+      await tester.pump();
+
+      //Verificar se botão do twitter está visível
+      expect(find.byKey(const ValueKey('linkedin-button')), findsNothing);
+    });
+  });
   testWidgets(
       'quando a api NÃO retorna o link, o botão do GitHub NÃO é apresentado na tela',
       (tester) async {
