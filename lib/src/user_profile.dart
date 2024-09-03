@@ -53,9 +53,6 @@ class _UserProfileState extends State<UserProfile> {
                   model.name,
                 ),
               ),
-              const SizedBox(
-                height: 1,
-              ),
               Padding(
                 padding: const EdgeInsets.only(bottom: 7),
                 child: Text(
@@ -184,7 +181,7 @@ class AboutInfoWidget extends StatelessWidget {
     return SingleChildScrollView(
       child: Center(
         child: Padding(
-          padding: const EdgeInsets.only(top: 17),
+          padding: const EdgeInsets.only(top: 30),
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
