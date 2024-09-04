@@ -21,7 +21,9 @@ class _StartPageState extends State<StartPage> {
   Widget build(BuildContext context) {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
-      home: UserProfile(repository: repository),
+      home: UserProfile(
+        repository: repository,
+      ),
     );
   }
 }
