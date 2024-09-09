@@ -3,9 +3,11 @@
 While physical business cards are still relevant, incorporating digital business cards in your networking efforts is no longer an option. Here's why the digital business card is the future of business cards.
 .
 
+Live Preview - https://digitalbusiness.codemagic.app/
+
 Example from APP
 
-<img src="https://i.ibb.co/6D9MXCK/teste10.jpg" alt="Logo da Minha Empresa">
+<img src="https://i.imgur.com/bok3XOU.jpeg" alt="Digital business">
 
 
 ## A Flutter project made using:
