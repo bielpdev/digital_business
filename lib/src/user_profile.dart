@@ -211,37 +211,24 @@ class ImageLogoWidget extends StatelessWidget {
     final screenSize = MediaQuery.of(context).size;
     // Calcula a proporção desejada com base no tamanho da tela
     const aspectRatio = 317 / 317;
-    return LayoutBuilder(
-      builder: (context, constraints) {
-        return SizedBox(
-          width: constraints.maxWidth,
-          child: ClipRRect(
-            borderRadius: const BorderRadius.only(
-                topRight: Radius.circular(10), topLeft: Radius.circular(10)),
-            child: Column(
-              children: [
-                SizedBox(
-                  height: 450,
-                  width: screenSize.height,
-                  child: AspectRatio(
-                    aspectRatio: kIsWeb
-                        ? 16 / 9
-                        : aspectRatio, // Proporção específica para a web
-                    child: Image.network(
-                      model.picture,
-                      fit: BoxFit.cover,
-                      width:
-                          kIsWeb ? 317 : null, // Largura específica para a web
-                      height:
-                          kIsWeb ? 317 : null, // Altura específica para a web
-                    ),
-                  ),
-                ),
-              ],
+    return ClipRRect(
+      borderRadius: const BorderRadius.only(
+          topRight: Radius.circular(10), topLeft: Radius.circular(10)),
+      child: Row(
+        mainAxisAlignment: MainAxisAlignment.center,
+        children: [
+          Flexible(
+            fit: FlexFit.tight,
+            flex: 5,
+            child: Image.network(
+              model.picture,
+              fit: BoxFit.cover,
+              width: kIsWeb ? 317 : null, // Largura específica para a web
+              height: kIsWeb ? 317 : null, // Altura específica para a web
             ),
           ),
-        );
-      },
+        ],
+      ),
     );
   }
 }
