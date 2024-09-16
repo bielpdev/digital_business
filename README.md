@@ -7,7 +7,8 @@ Live Preview - https://digitalbusiness.codemagic.app/
 
 Example from APP
 
-<img src="https://i.imgur.com/bok3XOU.jpeg" alt="Digital business">
+<img src="https://i.imgur.com/zb1qLCz.png" alt="Digital business" width="800" height="800" 
+title="coffee" alt="xícara">>
 
 
 ## A Flutter project made using:
