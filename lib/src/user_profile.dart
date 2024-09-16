@@ -72,7 +72,7 @@ class _UserProfileState extends State<UserProfile> {
     return Scaffold(
       backgroundColor: const Color(0xff1A1B21),
       body: LayoutBuilder(builder: (context, constraints) {
-        final Size screenSize = MediaQuery.of(context).size;
+        final Size screenSize = MediaQuery.sizeOf(context);
         final double screenWidth = screenSize.width;
         // final double screenHeight = screenSize.height;
         if (screenWidth >= 1200) {

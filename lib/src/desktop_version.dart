@@ -196,6 +196,9 @@ class _DesktopVersionState extends State<DesktopVersion> {
                           ],
                         ),
                         AboutInfoWidget(model),
+                        const SizedBox(
+                          height: 99,
+                        ),
                         ClipRRect(
                           borderRadius: const BorderRadius.only(
                               bottomLeft: Radius.circular(25),
