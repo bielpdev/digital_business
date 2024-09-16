@@ -7,7 +7,7 @@ Live Preview - https://digitalbusiness.codemagic.app/
 
 Example from APP - App/Web
 
-<img src="https://i.imgur.com/zb1qLCz.png" alt="Digital business" width="800" height="800" 
+<img src="https://i.imgur.com/pwHTkxE.png" alt="Digital business" width="800" height="800" 
 title="coffee" alt="xícara">>
 
 
