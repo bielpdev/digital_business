@@ -1,5 +1,3 @@
-import 'dart:io';
-
 import 'package:digital_business/src/business_card_repository.dart';
 import 'package:digital_business/src/card_model.dart';
 import 'package:digital_business/src/desktop_version.dart';
@@ -21,35 +19,25 @@ class UserProfile extends StatefulWidget {
   State<UserProfile> createState() => _UserProfileState();
 }
 
-void checkPlatformAndOpenClass() {
-  if (kIsWeb) {
-    runApp(MaterialApp(
-        home: DesktopVersion(repository: BusinessCardRepository())));
-    // Código específico para web
-    print('Rodando na web');
-    // Abra a classe específica para web
-  } else if (Platform.isAndroid || Platform.isIOS) {
-    // Código específico para dispositivos móveis
-    print('Rodando em um dispositivo móvel');
-    // Abra a classe específica para dispositivos móveis
-  } else if (Platform.isWindows) {
-    runApp(MaterialApp(
-        home: DesktopVersion(repository: BusinessCardRepository())));
-    // Código específico para Windows
-    print('Rodando em um dispositivo Windows');
-    // Abra a classe específica para Windows
-  } else if (Platform.isLinux) {
-    // Código específico para Linux
-    print('Rodando em um dispositivo Linux');
-    // Abra a classe específica para Linux
-  } else if (Platform.isMacOS) {
-    // Código específico para macOS
-    print('Rodando em um dispositivo macOS');
-    // Abra a classe específica para macOS
-  } else {
-    print('Plataforma desconhecida');
-  }
-}
+// void checkPlatformAndOpenClass() {
+//   if (kIsWeb) {
+//     runApp(MaterialApp(
+//         home: DesktopVersion(repository: BusinessCardRepository())));
+//     print('Rodando na web');
+//   } else if (Platform.isAndroid || Platform.isIOS) {
+//     print('Rodando em um dispositivo móvel');
+//   } else if (Platform.isWindows) {
+//     runApp(MaterialApp(
+//         home: DesktopVersion(repository: BusinessCardRepository())));
+//     print('Rodando em um dispositivo Windows');
+//   } else if (Platform.isLinux) {
+//     print('Rodando em um dispositivo Linux');
+//   } else if (Platform.isMacOS) {
+//     print('Rodando em um dispositivo macOS');
+//   } else {
+//     print('Plataforma desconhecida');
+//   }
+//}
 
 class _UserProfileState extends State<UserProfile> {
   late final Future<CardModel> _future;
@@ -59,8 +47,9 @@ class _UserProfileState extends State<UserProfile> {
   @override
   void initState() {
     super.initState();
+
     _future = widget.repository.getUser();
-    checkPlatformAndOpenClass();
+    //checkPlatformAndOpenClass();
 
     _scrollController.addListener(
       () {
@@ -82,147 +71,163 @@ class _UserProfileState extends State<UserProfile> {
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: const Color(0xff1A1B21),
-      body: FutureBuilder<CardModel>(
-        future: _future,
-        builder: (context, snapshot) {
-          if (snapshot.connectionState == ConnectionState.waiting) {
-            return const Center(
-              child: CircularProgressIndicator(
-                color: Colors.white,
-              ),
-            );
-          } else if (snapshot.hasError) {
-            return Center(child: Text('Erro: ${snapshot.error}'));
-          } else {
-            var model = snapshot.data!;
-            return SingleChildScrollView(
-              controller: _scrollController,
-              child: Column(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  ImageLogoWidget(model),
-                  //   ImageLogoWidget(model ),
-                  const SizedBox(height: 12),
-                  SizedBox(
-                    width: MediaQuery.of(context).size.width,
-                    child: Padding(
-                      padding: const EdgeInsets.only(),
-                      child: Center(
-                        child: Text(
-                          style: GoogleFonts.inter(
-                            color: Colors.white,
-                            fontSize: 25,
-                            fontWeight: FontWeight.w700,
-                          ),
-                          model.name,
-                        ),
-                      ),
-                    ),
-                  ),
-                  SizedBox(
-                    width: MediaQuery.of(context).size.width,
-                    child: Padding(
-                      padding: const EdgeInsets.only(bottom: 7),
-                      child: Center(
-                        child: Text(
-                          model.jobArea,
-                          style: GoogleFonts.inter(
-                            color: const Color(0xffF3BF99),
-                            fontSize: 12.8,
-                            fontWeight: FontWeight.w400,
+      body: LayoutBuilder(builder: (context, constraints) {
+        final Size screenSize = MediaQuery.of(context).size;
+        final double screenWidth = screenSize.width;
+        // final double screenHeight = screenSize.height;
+        if (screenWidth >= 1200) {
+          runApp(MaterialApp(
+              home: DesktopVersion(repository: BusinessCardRepository())));
+        } else if (screenWidth < 1200) {
+          runApp(UserProfile(repository: BusinessCardRepository()));
+        }
+
+        FutureBuilder<CardModel>(
+          future: _future,
+          builder: (context, snapshot) {
+            if (snapshot.connectionState == ConnectionState.waiting) {
+              return const Center(
+                child: CircularProgressIndicator(
+                  color: Colors.white,
+                ),
+              );
+            } else if (snapshot.hasError) {
+              return Center(child: Text('Erro: ${snapshot.error}'));
+            } else {
+              var model = snapshot.data!;
+              return SingleChildScrollView(
+                controller: _scrollController,
+                child: Column(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    ImageLogoWidget(model),
+                    //   ImageLogoWidget(model ),
+                    const SizedBox(height: 12),
+                    SizedBox(
+                      width: MediaQuery.of(context).size.width,
+                      child: Padding(
+                        padding: const EdgeInsets.only(),
+                        child: Center(
+                          child: Text(
+                            style: GoogleFonts.inter(
+                              color: Colors.white,
+                              fontSize: 25,
+                              fontWeight: FontWeight.w700,
+                            ),
+                            model.name,
                           ),
                         ),
                       ),
                     ),
-                  ),
-                  const SizedBox(
-                    height: 5,
-                  ),
-                  SizedBox(
-                    width: MediaQuery.of(context).size.width,
-                    child: Padding(
-                      padding: const EdgeInsets.only(bottom: 10),
-                      child: Center(
-                        child: Text(
-                          model.email,
-                          style: GoogleFonts.inter(
-                            color: const Color(0xffF5F5F5),
-                            fontSize: 10.24,
-                          ),
-                        ),
-                      ),
-                    ),
-                  ),
-                  const Padding(padding: EdgeInsets.only(top: 5)),
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: [
-                      SizedBox(
-                        width: 115,
-                        height: 34,
-                        child: ElevatedButton.icon(
-                          onPressed: () {
-                            widget.repository.launchLink(
-                                'https://mail.google.com/mail/u/0/#inbox?compose=XBcJlCFWWfhdsPTQclZRJKhqHFfFvWSGtDnmMvhWmjkBRdpQPTSMVXKrpLnGTPmJCSZSCqRxZtFvqfzG');
-                          },
-                          label: Text(
-                            style: GoogleFonts.inter(color: Colors.black),
-                            'Email',
-                          ),
-                          icon: Image.asset('lib/icons/Icon (2).png'),
-                          //   icon: Image.network('https://i.ibb.co/4FJtJwX/ae.jpg'),
-                          style: ElevatedButton.styleFrom(
-                            iconColor: Colors.blue,
-                            backgroundColor: Colors.white,
-                            shape: RoundedRectangleBorder(
-                              side: const BorderSide(
-                                width: 1,
-                                color: Color(0xffD1D5DB),
-                              ),
-                              borderRadius: BorderRadius.circular(6),
+                    SizedBox(
+                      width: MediaQuery.of(context).size.width,
+                      child: Padding(
+                        padding: const EdgeInsets.only(bottom: 7),
+                        child: Center(
+                          child: Text(
+                            model.jobArea,
+                            style: GoogleFonts.inter(
+                              color: const Color(0xffF3BF99),
+                              fontSize: 12.8,
+                              fontWeight: FontWeight.w400,
                             ),
                           ),
                         ),
                       ),
-                      const Padding(padding: EdgeInsets.all(12)),
-                      SizedBox(
-                        height: 36,
-                        child: SizedBox(
+                    ),
+                    const SizedBox(
+                      height: 5,
+                    ),
+                    SizedBox(
+                      width: MediaQuery.of(context).size.width,
+                      child: Padding(
+                        padding: const EdgeInsets.only(bottom: 10),
+                        child: Center(
+                          child: Text(
+                            model.email,
+                            style: GoogleFonts.inter(
+                              color: const Color(0xffF5F5F5),
+                              fontSize: 10.24,
+                            ),
+                          ),
+                        ),
+                      ),
+                    ),
+                    const Padding(padding: EdgeInsets.only(top: 5)),
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        SizedBox(
                           width: 115,
                           height: 34,
-                          child: GestureDetector(
-                            onTap: () {},
-                            child: ElevatedButton.icon(
-                              onPressed: () {
-                                widget.repository.launchLink(model.linkedin);
-                              },
-                              label: Text(
-                                'Linkedin',
-                                style: GoogleFonts.inter(color: Colors.white),
+                          child: ElevatedButton.icon(
+                            onPressed: () {
+                              widget.repository.launchLink(
+                                  'https://mail.google.com/mail/u/0/#inbox?compose=XBcJlCFWWfhdsPTQclZRJKhqHFfFvWSGtDnmMvhWmjkBRdpQPTSMVXKrpLnGTPmJCSZSCqRxZtFvqfzG');
+                            },
+                            label: Text(
+                              style: GoogleFonts.inter(color: Colors.black),
+                              'Email',
+                            ),
+                            icon: Image.asset('lib/icons/Icon (2).png'),
+                            //   icon: Image.network('https://i.ibb.co/4FJtJwX/ae.jpg'),
+                            style: ElevatedButton.styleFrom(
+                              iconColor: Colors.blue,
+                              backgroundColor: Colors.white,
+                              shape: RoundedRectangleBorder(
+                                side: const BorderSide(
+                                  width: 1,
+                                  color: Color(0xffD1D5DB),
+                                ),
+                                borderRadius: BorderRadius.circular(6),
                               ),
-                              icon: SvgPicture.asset('lib/icons/linkedin.svg'),
-                              style: ElevatedButton.styleFrom(
-                                padding: const EdgeInsets.all(5),
-                                iconColor: Colors.black,
-                                backgroundColor: const Color(0xff5093E2),
-                                shape: RoundedRectangleBorder(
-                                  borderRadius: BorderRadius.circular(6),
+                            ),
+                          ),
+                        ),
+                        const Padding(padding: EdgeInsets.all(12)),
+                        SizedBox(
+                          height: 36,
+                          child: SizedBox(
+                            width: 115,
+                            height: 34,
+                            child: GestureDetector(
+                              onTap: () {},
+                              child: ElevatedButton.icon(
+                                onPressed: () {
+                                  widget.repository.launchLink(model.linkedin);
+                                },
+                                label: Text(
+                                  'Linkedin',
+                                  style: GoogleFonts.inter(color: Colors.white),
+                                ),
+                                icon:
+                                    SvgPicture.asset('lib/icons/linkedin.svg'),
+                                style: ElevatedButton.styleFrom(
+                                  padding: const EdgeInsets.all(5),
+                                  iconColor: Colors.black,
+                                  backgroundColor: const Color(0xff5093E2),
+                                  shape: RoundedRectangleBorder(
+                                    borderRadius: BorderRadius.circular(6),
+                                  ),
                                 ),
                               ),
                             ),
                           ),
                         ),
-                      ),
-                    ],
-                  ),
-                  AboutInfoWidget(model),
-                  //   BottomBarWidget(model),
-                ],
-              ),
-            );
-          }
-        },
-      ),
+                      ],
+                    ),
+                    AboutInfoWidget(model),
+                    //   BottomBarWidget(model),
+                  ],
+                ),
+              );
+            }
+          },
+        );
+        return const SizedBox.shrink(
+          child: null,
+        );
+      }),
       bottomNavigationBar: FutureBuilder<CardModel>(
         future: _future,
         builder: (context, snapshot) {
