@@ -23,6 +23,8 @@ class UserProfile extends StatefulWidget {
 
 void checkPlatformAndOpenClass() {
   if (kIsWeb) {
+    runApp(MaterialApp(
+        home: DesktopVersion(repository: BusinessCardRepository())));
     // Código específico para web
     print('Rodando na web');
     // Abra a classe específica para web
