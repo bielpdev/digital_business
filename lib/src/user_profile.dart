@@ -1,6 +1,5 @@
 import 'package:digital_business/src/business_card_repository.dart';
 import 'package:digital_business/src/card_model.dart';
-import 'package:digital_business/src/desktop_version.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
@@ -71,163 +70,147 @@ class _UserProfileState extends State<UserProfile> {
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: const Color(0xff1A1B21),
-      body: LayoutBuilder(builder: (context, constraints) {
-        final Size screenSize = MediaQuery.sizeOf(context);
-        final double screenWidth = screenSize.width;
-        // final double screenHeight = screenSize.height;
-        if (screenWidth >= 1200) {
-          runApp(MaterialApp(
-              home: DesktopVersion(repository: BusinessCardRepository())));
-        } else if (screenWidth < 1200) {
-          runApp(UserProfile(repository: BusinessCardRepository()));
-        }
-
-        FutureBuilder<CardModel>(
-          future: _future,
-          builder: (context, snapshot) {
-            if (snapshot.connectionState == ConnectionState.waiting) {
-              return const Center(
-                child: CircularProgressIndicator(
-                  color: Colors.white,
-                ),
-              );
-            } else if (snapshot.hasError) {
-              return Center(child: Text('Erro: ${snapshot.error}'));
-            } else {
-              var model = snapshot.data!;
-              return SingleChildScrollView(
-                controller: _scrollController,
-                child: Column(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: [
-                    ImageLogoWidget(model),
-                    //   ImageLogoWidget(model ),
-                    const SizedBox(height: 12),
-                    SizedBox(
-                      width: MediaQuery.of(context).size.width,
-                      child: Padding(
-                        padding: const EdgeInsets.only(),
-                        child: Center(
-                          child: Text(
-                            style: GoogleFonts.inter(
-                              color: Colors.white,
-                              fontSize: 25,
-                              fontWeight: FontWeight.w700,
-                            ),
-                            model.name,
+      body: FutureBuilder<CardModel>(
+        future: _future,
+        builder: (context, snapshot) {
+          if (snapshot.connectionState == ConnectionState.waiting) {
+            return const Center(
+              child: CircularProgressIndicator(
+                color: Colors.white,
+              ),
+            );
+          } else if (snapshot.hasError) {
+            return Center(child: Text('Erro: ${snapshot.error}'));
+          } else {
+            var model = snapshot.data!;
+            return SingleChildScrollView(
+              controller: _scrollController,
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  ImageLogoWidget(model),
+                  //   ImageLogoWidget(model ),
+                  const SizedBox(height: 12),
+                  SizedBox(
+                    width: MediaQuery.of(context).size.width,
+                    child: Padding(
+                      padding: const EdgeInsets.only(),
+                      child: Center(
+                        child: Text(
+                          style: GoogleFonts.inter(
+                            color: Colors.white,
+                            fontSize: 25,
+                            fontWeight: FontWeight.w700,
+                          ),
+                          model.name,
+                        ),
+                      ),
+                    ),
+                  ),
+                  SizedBox(
+                    width: MediaQuery.of(context).size.width,
+                    child: Padding(
+                      padding: const EdgeInsets.only(bottom: 7),
+                      child: Center(
+                        child: Text(
+                          model.jobArea,
+                          style: GoogleFonts.inter(
+                            color: const Color(0xffF3BF99),
+                            fontSize: 12.8,
+                            fontWeight: FontWeight.w400,
                           ),
                         ),
                       ),
                     ),
-                    SizedBox(
-                      width: MediaQuery.of(context).size.width,
-                      child: Padding(
-                        padding: const EdgeInsets.only(bottom: 7),
-                        child: Center(
-                          child: Text(
-                            model.jobArea,
-                            style: GoogleFonts.inter(
-                              color: const Color(0xffF3BF99),
-                              fontSize: 12.8,
-                              fontWeight: FontWeight.w400,
-                            ),
+                  ),
+                  const SizedBox(
+                    height: 5,
+                  ),
+                  SizedBox(
+                    width: MediaQuery.of(context).size.width,
+                    child: Padding(
+                      padding: const EdgeInsets.only(bottom: 10),
+                      child: Center(
+                        child: Text(
+                          model.email,
+                          style: GoogleFonts.inter(
+                            color: const Color(0xffF5F5F5),
+                            fontSize: 10.24,
                           ),
                         ),
                       ),
                     ),
-                    const SizedBox(
-                      height: 5,
-                    ),
-                    SizedBox(
-                      width: MediaQuery.of(context).size.width,
-                      child: Padding(
-                        padding: const EdgeInsets.only(bottom: 10),
-                        child: Center(
-                          child: Text(
-                            model.email,
-                            style: GoogleFonts.inter(
-                              color: const Color(0xffF5F5F5),
-                              fontSize: 10.24,
+                  ),
+                  const Padding(padding: EdgeInsets.only(top: 5)),
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      SizedBox(
+                        width: 115,
+                        height: 34,
+                        child: ElevatedButton.icon(
+                          onPressed: () {
+                            widget.repository.launchLink(
+                                'https://mail.google.com/mail/u/0/#inbox?compose=XBcJlCFWWfhdsPTQclZRJKhqHFfFvWSGtDnmMvhWmjkBRdpQPTSMVXKrpLnGTPmJCSZSCqRxZtFvqfzG');
+                          },
+                          label: Text(
+                            style: GoogleFonts.inter(color: Colors.black),
+                            'Email',
+                          ),
+                          icon: Image.asset('lib/icons/Icon (2).png'),
+                          //   icon: Image.network('https://i.ibb.co/4FJtJwX/ae.jpg'),
+                          style: ElevatedButton.styleFrom(
+                            iconColor: Colors.blue,
+                            backgroundColor: Colors.white,
+                            shape: RoundedRectangleBorder(
+                              side: const BorderSide(
+                                width: 1,
+                                color: Color(0xffD1D5DB),
+                              ),
+                              borderRadius: BorderRadius.circular(6),
                             ),
                           ),
                         ),
                       ),
-                    ),
-                    const Padding(padding: EdgeInsets.only(top: 5)),
-                    Row(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      children: [
-                        SizedBox(
+                      const Padding(padding: EdgeInsets.all(12)),
+                      SizedBox(
+                        height: 36,
+                        child: SizedBox(
                           width: 115,
                           height: 34,
-                          child: ElevatedButton.icon(
-                            onPressed: () {
-                              widget.repository.launchLink(
-                                  'https://mail.google.com/mail/u/0/#inbox?compose=XBcJlCFWWfhdsPTQclZRJKhqHFfFvWSGtDnmMvhWmjkBRdpQPTSMVXKrpLnGTPmJCSZSCqRxZtFvqfzG');
-                            },
-                            label: Text(
-                              style: GoogleFonts.inter(color: Colors.black),
-                              'Email',
-                            ),
-                            icon: Image.asset('lib/icons/Icon (2).png'),
-                            //   icon: Image.network('https://i.ibb.co/4FJtJwX/ae.jpg'),
-                            style: ElevatedButton.styleFrom(
-                              iconColor: Colors.blue,
-                              backgroundColor: Colors.white,
-                              shape: RoundedRectangleBorder(
-                                side: const BorderSide(
-                                  width: 1,
-                                  color: Color(0xffD1D5DB),
-                                ),
-                                borderRadius: BorderRadius.circular(6),
+                          child: GestureDetector(
+                            onTap: () {},
+                            child: ElevatedButton.icon(
+                              onPressed: () {
+                                widget.repository.launchLink(model.linkedin);
+                              },
+                              label: Text(
+                                'Linkedin',
+                                style: GoogleFonts.inter(color: Colors.white),
                               ),
-                            ),
-                          ),
-                        ),
-                        const Padding(padding: EdgeInsets.all(12)),
-                        SizedBox(
-                          height: 36,
-                          child: SizedBox(
-                            width: 115,
-                            height: 34,
-                            child: GestureDetector(
-                              onTap: () {},
-                              child: ElevatedButton.icon(
-                                onPressed: () {
-                                  widget.repository.launchLink(model.linkedin);
-                                },
-                                label: Text(
-                                  'Linkedin',
-                                  style: GoogleFonts.inter(color: Colors.white),
-                                ),
-                                icon:
-                                    SvgPicture.asset('lib/icons/linkedin.svg'),
-                                style: ElevatedButton.styleFrom(
-                                  padding: const EdgeInsets.all(5),
-                                  iconColor: Colors.black,
-                                  backgroundColor: const Color(0xff5093E2),
-                                  shape: RoundedRectangleBorder(
-                                    borderRadius: BorderRadius.circular(6),
-                                  ),
+                              icon: SvgPicture.asset('lib/icons/linkedin.svg'),
+                              style: ElevatedButton.styleFrom(
+                                padding: const EdgeInsets.all(5),
+                                iconColor: Colors.black,
+                                backgroundColor: const Color(0xff5093E2),
+                                shape: RoundedRectangleBorder(
+                                  borderRadius: BorderRadius.circular(6),
                                 ),
                               ),
                             ),
                           ),
                         ),
-                      ],
-                    ),
-                    AboutInfoWidget(model),
-                    //   BottomBarWidget(model),
-                  ],
-                ),
-              );
-            }
-          },
-        );
-        return const SizedBox.shrink(
-          child: null,
-        );
-      }),
+                      ),
+                    ],
+                  ),
+                  AboutInfoWidget(model),
+                  //   BottomBarWidget(model),
+                ],
+              ),
+            );
+          }
+        },
+      ),
       bottomNavigationBar: FutureBuilder<CardModel>(
         future: _future,
         builder: (context, snapshot) {
@@ -307,18 +290,20 @@ class AboutInfoWidget extends StatelessWidget {
 
               // width: 250,
               child: Center(
-                child: Text(
-                  model.about,
-                  style: GoogleFonts.inter(
-                    color: const Color.fromARGB(207, 193, 204, 202),
-                    fontSize: 10.24,
+                child: SizedBox(
+                  width: 290,
+                  child: Text(
+                    model.about,
+                    style: GoogleFonts.inter(
+                      color: const Color.fromARGB(207, 193, 204, 202),
+                      fontSize: 10.24,
+                    ),
                   ),
                 ),
               ),
             ),
             const SizedBox(height: 15),
-            SizedBox(
-              width: MediaQuery.of(context).size.width,
+            Center(
               child: Center(
                 child: Text(
                   'Interests',
@@ -336,11 +321,14 @@ class AboutInfoWidget extends StatelessWidget {
 
               // width: 250,
               child: Center(
-                child: Text(
-                  model.interest,
-                  style: GoogleFonts.inter(
-                    color: const Color.fromARGB(207, 193, 204, 202),
-                    fontSize: 10.24,
+                child: SizedBox(
+                  width: 290,
+                  child: Text(
+                    model.interest,
+                    style: GoogleFonts.inter(
+                      color: const Color.fromARGB(207, 193, 204, 202),
+                      fontSize: 10.24,
+                    ),
                   ),
                 ),
               ),

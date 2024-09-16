@@ -43,9 +43,6 @@ class _DesktopVersionState extends State<DesktopVersion> {
 
   @override
   Widget build(BuildContext context) {
-    final Size screenSize = MediaQuery.of(context).size;
-    final double screenWidth = screenSize.width;
-    final double screenHeight = screenSize.height;
     return SizedBox(
       height: 550,
       width: 868,

@@ -1,3 +1,4 @@
+import 'package:digital_business/src/desktop_version.dart';
 import 'package:digital_business/src/user_profile.dart';
 import 'package:flutter/material.dart';
 
@@ -15,14 +16,31 @@ class StartPage extends StatefulWidget {
 }
 
 class _StartPageState extends State<StartPage> {
+  choiceDevice() {
+    final Size screenSize = MediaQuery.of(context).size;
+    final double screenWidth = screenSize.width;
+    final double screenHeight = screenSize.height;
+    if (screenWidth >= 1200) {
+      runApp(MaterialApp(
+          home: DesktopVersion(repository: BusinessCardRepository())));
+    } else if (screenWidth < 1200) {
+      runApp(
+          MaterialApp(home: UserProfile(repository: BusinessCardRepository())));
+    }
+  }
+
   final repository = BusinessCardRepository();
 
   @override
   Widget build(BuildContext context) {
+    final Size screenSize = MediaQuery.sizeOf(context);
+    final double screenWidth = screenSize.width;
     return MaterialApp(
       debugShowCheckedModeBanner: false,
-      home: UserProfile(
-        repository: repository,
+      home: Column(
+        children: [
+          choiceDevice(),
+        ],
       ),
     );
   }
