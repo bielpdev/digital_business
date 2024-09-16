@@ -45,6 +45,8 @@ dependencies:
   go_router: ^14.2.7
   scroll_bottom_navigation_bar: ^4.0.0
   scroll_to_hide: ^1.0.0
+  device_info_plus: ^10.1.2
+
 
 
 

@@ -1,6 +1,10 @@
 import 'dart:convert';
+import 'dart:io';
 
+import 'package:device_info_plus/device_info_plus.dart';
 import 'package:digital_business/src/card_model.dart';
+import 'package:digital_business/src/desktop_version.dart';
+import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 import 'package:url_launcher/url_launcher.dart';
 
@@ -28,6 +32,31 @@ class BusinessCardRepository {
       await launchUrl(Uri.parse(url));
     } else {
       print('Error para realizar a ação');
+    }
+  }
+
+  Future<void> getDeviceInfo() async {
+    DeviceInfoPlugin deviceInfo = DeviceInfoPlugin();
+    if (Platform.isAndroid) {
+      AndroidDeviceInfo androidInfo = await deviceInfo.androidInfo;
+      print('Rodando em um dispositivo Android: ${androidInfo.model}');
+    } else if (Platform.isIOS) {
+      IosDeviceInfo iosInfo = await deviceInfo.iosInfo;
+      print('Rodando em um dispositivo iOS: ${iosInfo.utsname.machine}');
+    } else if (Platform.isLinux) {
+      LinuxDeviceInfo linuxInfo = await deviceInfo.linuxInfo;
+      print('Rodando em um dispositivo Linux: ${linuxInfo.name}');
+    } else if (Platform.isMacOS) {
+      MacOsDeviceInfo macInfo = await deviceInfo.macOsInfo;
+      print('Rodando em um dispositivo macOS: ${macInfo.model}');
+    } else if (Platform.isWindows) {
+      runApp(DesktopVersion(
+        repository: BusinessCardRepository(),
+      ));
+      WindowsDeviceInfo windowsInfo = await deviceInfo.windowsInfo;
+      print('Rodando em um dispositivo Windows: ${windowsInfo.computerName}');
+    } else {
+      print('Plataforma desconhecida');
     }
   }
 }

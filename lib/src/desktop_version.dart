@@ -6,19 +6,19 @@ import 'package:flutter/rendering.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:google_fonts/google_fonts.dart';
 
-class UserProfile extends StatefulWidget {
+class DesktopVersion extends StatefulWidget {
   final BusinessCardRepository repository;
 
-  const UserProfile({
+  const DesktopVersion({
     super.key,
     required this.repository,
   });
 
   @override
-  State<UserProfile> createState() => _UserProfileState();
+  State<DesktopVersion> createState() => _DesktopVersionState();
 }
 
-class _UserProfileState extends State<UserProfile> {
+class _DesktopVersionState extends State<DesktopVersion> {
   late final Future<CardModel> _future;
   final ScrollController _scrollController = ScrollController();
 
@@ -64,7 +64,7 @@ class _UserProfileState extends State<UserProfile> {
               child: Column(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
-                  ImageLogoWidget(model),
+                  //   ImageLogoWidget(model),
                   //   ImageLogoWidget(model ),
                   const SizedBox(height: 12),
                   SizedBox(
