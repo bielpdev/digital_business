@@ -1,5 +1,8 @@
+import 'dart:io';
+
 import 'package:digital_business/src/business_card_repository.dart';
 import 'package:digital_business/src/card_model.dart';
+import 'package:digital_business/src/desktop_version.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
@@ -18,14 +21,45 @@ class UserProfile extends StatefulWidget {
   State<UserProfile> createState() => _UserProfileState();
 }
 
+void checkPlatformAndOpenClass() {
+  if (kIsWeb) {
+    // Código específico para web
+    print('Rodando na web');
+    // Abra a classe específica para web
+  } else if (Platform.isAndroid || Platform.isIOS) {
+    // Código específico para dispositivos móveis
+    print('Rodando em um dispositivo móvel');
+    // Abra a classe específica para dispositivos móveis
+  } else if (Platform.isWindows) {
+    runApp(MaterialApp(
+        home: DesktopVersion(repository: BusinessCardRepository())));
+    // Código específico para Windows
+    print('Rodando em um dispositivo Windows');
+    // Abra a classe específica para Windows
+  } else if (Platform.isLinux) {
+    // Código específico para Linux
+    print('Rodando em um dispositivo Linux');
+    // Abra a classe específica para Linux
+  } else if (Platform.isMacOS) {
+    // Código específico para macOS
+    print('Rodando em um dispositivo macOS');
+    // Abra a classe específica para macOS
+  } else {
+    print('Plataforma desconhecida');
+  }
+}
+
 class _UserProfileState extends State<UserProfile> {
   late final Future<CardModel> _future;
+
   final ScrollController _scrollController = ScrollController();
 
   @override
   void initState() {
     super.initState();
     _future = widget.repository.getUser();
+    checkPlatformAndOpenClass();
+
     _scrollController.addListener(
       () {
         if (_scrollController.position.userScrollDirection ==

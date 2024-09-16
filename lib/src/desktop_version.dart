@@ -1,6 +1,5 @@
 import 'package:digital_business/src/business_card_repository.dart';
 import 'package:digital_business/src/card_model.dart';
-import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
 import 'package:flutter_svg/flutter_svg.dart';
@@ -29,7 +28,7 @@ class _DesktopVersionState extends State<DesktopVersion> {
     _scrollController.addListener(
       () {
         if (_scrollController.position.userScrollDirection ==
-            ScrollDirection.reverse) {
+            ScrollDirection.idle) {
           showBtmApp = false;
           setState(() {});
         } else {
@@ -44,159 +43,198 @@ class _DesktopVersionState extends State<DesktopVersion> {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      backgroundColor: const Color(0xff1A1B21),
-      body: FutureBuilder<CardModel>(
-        future: _future,
-        builder: (context, snapshot) {
-          if (snapshot.connectionState == ConnectionState.waiting) {
-            return const Center(
-              child: CircularProgressIndicator(
-                color: Colors.white,
-              ),
-            );
-          } else if (snapshot.hasError) {
-            return Center(child: Text('Erro: ${snapshot.error}'));
-          } else {
-            var model = snapshot.data!;
-            return SingleChildScrollView(
-              controller: _scrollController,
-              child: Column(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  //   ImageLogoWidget(model),
-                  //   ImageLogoWidget(model ),
-                  const SizedBox(height: 12),
-                  SizedBox(
-                    width: MediaQuery.of(context).size.width,
-                    child: Padding(
-                      padding: const EdgeInsets.only(),
-                      child: Center(
-                        child: Text(
-                          style: GoogleFonts.inter(
-                            color: Colors.white,
-                            fontSize: 25,
-                            fontWeight: FontWeight.w700,
-                          ),
-                          model.name,
-                        ),
-                      ),
+    final Size screenSize = MediaQuery.of(context).size;
+    final double screenWidth = screenSize.width;
+    final double screenHeight = screenSize.height;
+    return SizedBox(
+      height: 550,
+      width: 868,
+      child: Scaffold(
+        backgroundColor: const Color(0xff23252C),
+        body: Center(
+          child: Container(
+            height: 780,
+            width: 317,
+            // color: const Color(0xff23252C),
+            decoration: BoxDecoration(
+                borderRadius: BorderRadius.circular(25),
+                color: const Color(0xff1A1B21)),
+            //color: const Color(0xff23252C),
+            child: FutureBuilder<CardModel>(
+              future: _future,
+              builder: (context, snapshot) {
+                if (snapshot.connectionState == ConnectionState.waiting) {
+                  return const Center(
+                    child: CircularProgressIndicator(
+                      color: Colors.white,
                     ),
-                  ),
-                  SizedBox(
-                    width: MediaQuery.of(context).size.width,
-                    child: Padding(
-                      padding: const EdgeInsets.only(bottom: 7),
-                      child: Center(
-                        child: Text(
-                          model.jobArea,
-                          style: GoogleFonts.inter(
-                            color: const Color(0xffF3BF99),
-                            fontSize: 12.8,
-                            fontWeight: FontWeight.w400,
-                          ),
-                        ),
-                      ),
-                    ),
-                  ),
-                  const SizedBox(
-                    height: 5,
-                  ),
-                  SizedBox(
-                    width: MediaQuery.of(context).size.width,
-                    child: Padding(
-                      padding: const EdgeInsets.only(bottom: 10),
-                      child: Center(
-                        child: Text(
-                          model.email,
-                          style: GoogleFonts.inter(
-                            color: const Color(0xffF5F5F5),
-                            fontSize: 10.24,
-                          ),
-                        ),
-                      ),
-                    ),
-                  ),
-                  const Padding(padding: EdgeInsets.only(top: 5)),
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: [
-                      SizedBox(
-                        width: 115,
-                        height: 34,
-                        child: ElevatedButton.icon(
-                          onPressed: () {
-                            widget.repository.launchLink(
-                                'https://mail.google.com/mail/u/0/#inbox?compose=XBcJlCFWWfhdsPTQclZRJKhqHFfFvWSGtDnmMvhWmjkBRdpQPTSMVXKrpLnGTPmJCSZSCqRxZtFvqfzG');
-                          },
-                          label: Text(
-                            style: GoogleFonts.inter(color: Colors.black),
-                            'Email',
-                          ),
-                          icon: Image.asset('lib/icons/Icon (2).png'),
-                          //   icon: Image.network('https://i.ibb.co/4FJtJwX/ae.jpg'),
-                          style: ElevatedButton.styleFrom(
-                            iconColor: Colors.blue,
-                            backgroundColor: Colors.white,
-                            shape: RoundedRectangleBorder(
-                              side: const BorderSide(
-                                width: 1,
-                                color: Color(0xffD1D5DB),
+                  );
+                } else if (snapshot.hasError) {
+                  return Center(child: Text('Erro: ${snapshot.error}'));
+                } else {
+                  var model = snapshot.data!;
+                  return SingleChildScrollView(
+                    controller: _scrollController,
+                    child: Column(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        ImageLogoWidget(model),
+                        //   ImageLogoWidget(model ),
+                        SizedBox(
+                          width: MediaQuery.of(context).size.width,
+                          child: Padding(
+                            padding: const EdgeInsets.only(),
+                            child: Center(
+                              child: Text(
+                                style: GoogleFonts.inter(
+                                  color: Colors.white,
+                                  fontSize: 25,
+                                  fontWeight: FontWeight.w700,
+                                ),
+                                model.name,
                               ),
-                              borderRadius: BorderRadius.circular(6),
                             ),
                           ),
                         ),
-                      ),
-                      const Padding(padding: EdgeInsets.all(12)),
-                      SizedBox(
-                        height: 36,
-                        child: SizedBox(
-                          width: 115,
-                          height: 34,
-                          child: GestureDetector(
-                            onTap: () {},
-                            child: ElevatedButton.icon(
-                              onPressed: () {
-                                widget.repository.launchLink(model.linkedin);
-                              },
-                              label: Text(
-                                'Linkedin',
-                                style: GoogleFonts.inter(color: Colors.white),
-                              ),
-                              icon: SvgPicture.asset('lib/icons/linkedin.svg'),
-                              style: ElevatedButton.styleFrom(
-                                padding: const EdgeInsets.all(5),
-                                iconColor: Colors.black,
-                                backgroundColor: const Color(0xff5093E2),
-                                shape: RoundedRectangleBorder(
-                                  borderRadius: BorderRadius.circular(6),
+                        SizedBox(
+                          width: MediaQuery.of(context).size.width,
+                          child: Padding(
+                            padding: const EdgeInsets.only(bottom: 7),
+                            child: Center(
+                              child: Text(
+                                model.jobArea,
+                                style: GoogleFonts.inter(
+                                  color: const Color(0xffF3BF99),
+                                  fontSize: 12.8,
+                                  fontWeight: FontWeight.w400,
                                 ),
                               ),
                             ),
                           ),
                         ),
-                      ),
-                    ],
-                  ),
-                  AboutInfoWidget(model),
-                  //   BottomBarWidget(model),
-                ],
-              ),
-            );
-          }
-        },
-      ),
-      bottomNavigationBar: FutureBuilder<CardModel>(
-        future: _future,
-        builder: (context, snapshot) {
-          if (!snapshot.hasData) return const SizedBox.shrink();
-          return AnimatedContainer(
-              duration: const Duration(milliseconds: 700),
-              curve: Curves.easeInOutSine,
-              height: showBtmApp ? 70 : 0,
-              child: BottomBarWidget(snapshot.data!, widget.repository));
-        },
+                        const SizedBox(
+                          height: 5,
+                        ),
+                        SizedBox(
+                          width: MediaQuery.of(context).size.width,
+                          child: Padding(
+                            padding: const EdgeInsets.only(bottom: 10),
+                            child: Center(
+                              child: Text(
+                                model.email,
+                                style: GoogleFonts.inter(
+                                  color: const Color(0xffF5F5F5),
+                                  fontSize: 10.24,
+                                ),
+                              ),
+                            ),
+                          ),
+                        ),
+                        const Padding(padding: EdgeInsets.only(top: 5)),
+                        Row(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: [
+                            SizedBox(
+                              width: 115,
+                              height: 34,
+                              child: ElevatedButton.icon(
+                                onPressed: () {
+                                  widget.repository.launchLink(
+                                      'https://mail.google.com/mail/u/0/#inbox?compose=XBcJlCFWWfhdsPTQclZRJKhqHFfFvWSGtDnmMvhWmjkBRdpQPTSMVXKrpLnGTPmJCSZSCqRxZtFvqfzG');
+                                },
+                                label: Text(
+                                  style: GoogleFonts.inter(color: Colors.black),
+                                  'Email',
+                                ),
+                                icon: Image.asset('lib/icons/Icon (2).png'),
+                                //   icon: Image.network('https://i.ibb.co/4FJtJwX/ae.jpg'),
+                                style: ElevatedButton.styleFrom(
+                                  iconColor: Colors.blue,
+                                  backgroundColor: Colors.white,
+                                  shape: RoundedRectangleBorder(
+                                    side: const BorderSide(
+                                      width: 1,
+                                      color: Color(0xffD1D5DB),
+                                    ),
+                                    borderRadius: BorderRadius.circular(6),
+                                  ),
+                                ),
+                              ),
+                            ),
+                            const Padding(padding: EdgeInsets.all(12)),
+                            SizedBox(
+                              height: 36,
+                              child: SizedBox(
+                                width: 115,
+                                height: 34,
+                                child: GestureDetector(
+                                  onTap: () {},
+                                  child: ElevatedButton.icon(
+                                    onPressed: () {
+                                      widget.repository
+                                          .launchLink(model.linkedin);
+                                    },
+                                    label: Text(
+                                      'Linkedin',
+                                      style: GoogleFonts.inter(
+                                          color: Colors.white),
+                                    ),
+                                    icon: SvgPicture.asset(
+                                        'lib/icons/linkedin.svg'),
+                                    style: ElevatedButton.styleFrom(
+                                      padding: const EdgeInsets.all(5),
+                                      iconColor: Colors.black,
+                                      backgroundColor: const Color(0xff5093E2),
+                                      shape: RoundedRectangleBorder(
+                                        borderRadius: BorderRadius.circular(6),
+                                      ),
+                                    ),
+                                  ),
+                                ),
+                              ),
+                            ),
+                          ],
+                        ),
+                        AboutInfoWidget(model),
+                        ClipRRect(
+                          borderRadius: const BorderRadius.only(
+                              bottomLeft: Radius.circular(25),
+                              bottomRight: Radius.circular(25)),
+                          child: FutureBuilder<CardModel>(
+                            future: _future,
+                            builder: (context, snapshot) {
+                              if (!snapshot.hasData)
+                                return const SizedBox.shrink();
+                              return AnimatedContainer(
+                                  duration: const Duration(milliseconds: 700),
+                                  curve: Curves.easeInOutSine,
+                                  height: showBtmApp ? 70 : 10,
+                                  child: BottomBarWidget(
+                                      snapshot.data!, widget.repository));
+                            },
+                          ),
+                        ),
+                        //   BottomBarWidget(model),
+                      ],
+                    ),
+                  );
+                }
+              },
+            ),
+          ),
+        ),
+        // bottomNavigationBar: FutureBuilder<CardModel>(
+        //   future: _future,
+        //   builder: (context, snapshot) {
+        //     if (!snapshot.hasData) return const SizedBox.shrink();
+        //     return AnimatedContainer(
+        //         duration: const Duration(milliseconds: 700),
+        //         //    curve: Curves.easeInOutSine,
+        //         curve: Curves.bounceInOut,
+        //         height: showBtmApp ? 70 : 0,
+        //         child: BottomBarWidget(snapshot.data!, widget.repository));
+        //   },
+        // ),
       ),
     );
   }
@@ -212,21 +250,22 @@ class ImageLogoWidget extends StatelessWidget {
     // Calcula a proporção desejada com base no tamanho da tela
     const aspectRatio = 317 / 317;
     return ClipRRect(
-      borderRadius: const BorderRadius.only(
-          topRight: Radius.circular(10), topLeft: Radius.circular(10)),
       child: Row(
-        mainAxisAlignment: MainAxisAlignment.center,
+        //   mainAxisAlignment: MainAxisAlignment.center,
         children: [
-          Flexible(
-            fit: FlexFit.tight,
+          ClipRRect(
+            borderRadius: const BorderRadius.only(
+                topRight: Radius.circular(10), topLeft: Radius.circular(10)),
             child: Image.network(
-              fit: BoxFit.fitWidth, scale: 5, cacheHeight: 750,
+                fit: BoxFit.fill,
+                model.picture,
+                //   fit: BoxFit.cover,
+                width: 317,
+                height: 300
 
-              model.picture,
-              //   fit: BoxFit.cover,
-              width: kIsWeb ? 317 : null, // Largura específica para a web
-              height: kIsWeb ? 317 : null, // Altura específica para a web
-            ),
+                //  width: kIsWeb ? 271 : null, // Largura específica para a web
+                // height: kIsWeb ? 271 : null, // Altura específica para a web
+                ),
           ),
         ],
       ),
@@ -241,7 +280,8 @@ class AboutInfoWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Center(
+    return SizedBox(
+      width: 270,
       child: Padding(
         padding: const EdgeInsets.only(top: 30),
         child: Column(
@@ -304,7 +344,16 @@ class AboutInfoWidget extends StatelessWidget {
                 ),
               ),
             ),
-            const SizedBox(height: 30)
+            const SizedBox(height: 30),
+            // SizedBox(
+            //   //width: 900,
+            //   //    height: MediaQuery.of(context).size.height,
+            //   //  height: MediaQuery.of(context).size.height,
+            //   child: Row(
+            //     //  mainAxisAlignment: MainAxisAlignment.start,
+            //     children: [BottomBarWidget(model, BusinessCardRepository())],
+            //   ),
+            // )
           ],
         ),
       ),

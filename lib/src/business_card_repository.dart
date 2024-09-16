@@ -35,7 +35,7 @@ class BusinessCardRepository {
     }
   }
 
-  Future<void> getDeviceInfo() async {
+  static Future<void> getDeviceInfo() async {
     DeviceInfoPlugin deviceInfo = DeviceInfoPlugin();
     if (Platform.isAndroid) {
       AndroidDeviceInfo androidInfo = await deviceInfo.androidInfo;
