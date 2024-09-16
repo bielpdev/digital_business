@@ -5,7 +5,7 @@ While physical business cards are still relevant, incorporating digital business
 
 Live Preview - https://digitalbusiness.codemagic.app/
 
-Example from APP
+Example from APP - App/Web
 
 <img src="https://i.imgur.com/zb1qLCz.png" alt="Digital business" width="800" height="800" 
 title="coffee" alt="xícara">>
