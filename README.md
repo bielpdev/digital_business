@@ -3,17 +3,37 @@
 While physical business cards are still relevant, incorporating digital business cards in your networking efforts is no longer an option. Here's why the digital business card is the future of business cards.
 .
 
-Live Preview - https://digitalbusiness.codemagic.app/
 
-Example from APP - App/Web
+-------------------------------------------------------------------------------------------------------------
+<details>
+    <summary> Link - Live Preview </strong></summary>  
+        <div style="display: flex; justify-content:space-between;">
+            <figure style="text-align:center; flex:1;">
+             <a href=" https://digitalbusiness.codemagic.app/">URL - https://digitalbusiness.codemagic.app/</a>       
+             <figcaption styles="text-align: center;">
+            </figure>
 
-<img src="https://i.imgur.com/pwHTkxE.png" alt="Digital business" width="800" height="800" 
-title="coffee" alt="xícara">>
+</details>&nbsp;
+<details>
+    <summary> ScreenShots - Web / App </strong></summary>  
+        <div style="display: flex; justify-content:space-between;">
+            <figure style="text-align:center; flex:1;">
+                <img src="https://i.imgur.com/hx5kRST.png" alt= "Summit Lake - Charles Donlea" width="50%"/>
+                <figcaption styles="text-align: center;">
+            </figure>
+            <figure style="text-align:center; flex:1;">
+                <img src="https://i.imgur.com/REdeMdj.jpeg" alt= "Confident Data Skills - Kirill Eremenko" alt="Confident Data Skills" width="50%"/>
+                <figcaption styles="text-align: center;">
+            </figure>
+        </div>
+
+</details>&nbsp;
+-------------------------------------------------------------------------------------------------------------
 
 
 ## A Flutter project made using:
 
-- **Flutter** _(v3.22.2)_
+- **Flutter** _(v3.24.2)_
 
 ## To run this project:
 ```
