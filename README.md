@@ -5,7 +5,7 @@ While physical business cards are still relevant, incorporating digital business
 
 
 -------------------------------------------------------------------------------------------------------------
-<a href="https://digitalbusiness.codemagic.app/">Live Preview - Clique aqui </a>
+<a href="https://digitalbusiness.codemagic.app/">Live Preview - Click here</a>
 
 </details>&nbsp;
 <details>
