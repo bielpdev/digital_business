@@ -9,21 +9,22 @@ While physical business cards are still relevant, incorporating digital business
     <summary> Link - Live Preview </strong></summary>  
         <div style="display: flex; justify-content:space-between;">
             <figure style="text-align:center; flex:1;">
-             <a href=" https://digitalbusiness.codemagic.app/">URL - https://digitalbusiness.codemagic.app/</a>       
+             <a href="https://digitalbusiness.codemagic.app/">URL - https://digitalbusiness.codemagic.app/</a>       
              <figcaption styles="text-align: center;">
             </figure>
 
 </details>&nbsp;
+
 <details>
-    <summary> ScreenShots - Web / App </strong></summary>  
+    <summary><strong>ScreenShots - Web / App</strong></summary>  
         <div style="display: flex; justify-content:space-between;">
             <figure style="text-align:center; flex:1;">
-                <img src="https://i.imgur.com/hx5kRST.png" alt= "Summit Lake - Charles Donlea" width="50%"/>
-                <figcaption styles="text-align: center;">
+                <img src="https://i.imgur.com/hx5kRST.png" alt= "" width="50%"/>
+                <figcaption styles="text-align: center;"> Web </figcaption>
             </figure>
             <figure style="text-align:center; flex:1;">
-                <img src="https://i.imgur.com/REdeMdj.jpeg" alt= "Confident Data Skills - Kirill Eremenko" alt="Confident Data Skills" width="50%"/>
-                <figcaption styles="text-align: center;">
+                <img src="https://i.imgur.com/REdeMdj.jpeg" alt= "" alt="" width="40%"/>
+                <figcaption styles="text-align: center;"> App </figcaption>
             </figure>
         </div>
 
