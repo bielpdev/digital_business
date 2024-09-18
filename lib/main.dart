@@ -17,9 +17,9 @@ class StartPage extends StatefulWidget {
 
 class _StartPageState extends State<StartPage> {
   choiceDevice() {
-    final Size screenSize = MediaQuery.of(context).size;
+    final Size screenSize = MediaQuery.sizeOf(context);
     final double screenWidth = screenSize.width;
-    final double screenHeight = screenSize.height;
+    //final double screenHeight = screenSize.height;
     if (screenWidth >= 1200) {
       runApp(MaterialApp(
           home: DesktopVersion(repository: BusinessCardRepository())));
@@ -33,13 +33,11 @@ class _StartPageState extends State<StartPage> {
 
   @override
   Widget build(BuildContext context) {
-    final Size screenSize = MediaQuery.sizeOf(context);
-    final double screenWidth = screenSize.width;
     return MaterialApp(
       debugShowCheckedModeBanner: false,
-      home: Column(
+      home: Stack(
         children: [
-          choiceDevice(),
+          choiceDevice() ?? const Text('Ocorreu algum erro'),
         ],
       ),
     );
