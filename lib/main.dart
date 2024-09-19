@@ -1,8 +1,8 @@
-import 'package:digital_business/src/desktop_version.dart';
-import 'package:digital_business/src/user_profile.dart';
+import 'package:digital_business/src/versions/app_version.dart';
+import 'package:digital_business/src/versions/desktop_version.dart';
 import 'package:flutter/material.dart';
 
-import 'src/business_card_repository.dart';
+import 'src/repository/business_card_repository.dart';
 
 void main() {
   runApp(const StartPage());

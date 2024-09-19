@@ -1,4 +1,4 @@
-import 'package:digital_business/src/card_model.dart';
+import 'package:digital_business/src/model/card_model.dart';
 import 'package:dio/dio.dart';
 import 'package:mocktail/mocktail.dart';
 

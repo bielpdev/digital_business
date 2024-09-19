@@ -2,8 +2,8 @@ import 'dart:convert';
 import 'dart:io';
 
 import 'package:device_info_plus/device_info_plus.dart';
-import 'package:digital_business/src/card_model.dart';
-import 'package:digital_business/src/desktop_version.dart';
+import 'package:digital_business/src/model/card_model.dart';
+import 'package:digital_business/src/versions/desktop_version.dart';
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 import 'package:url_launcher/url_launcher.dart';

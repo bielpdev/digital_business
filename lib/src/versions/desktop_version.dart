@@ -1,5 +1,6 @@
-import 'package:digital_business/src/business_card_repository.dart';
-import 'package:digital_business/src/card_model.dart';
+import 'package:digital_business/src/model/card_model.dart';
+import 'package:digital_business/src/repository/business_card_repository.dart';
+import 'package:digital_business/src/widgets/imageLogoWidget.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
 import 'package:flutter_svg/flutter_svg.dart';
@@ -52,11 +53,9 @@ class _DesktopVersionState extends State<DesktopVersion> {
           child: Container(
             height: 780,
             width: 317,
-            // color: const Color(0xff23252C),
             decoration: BoxDecoration(
                 borderRadius: BorderRadius.circular(25),
                 color: const Color(0xff1A1B21)),
-            //color: const Color(0xff23252C),
             child: FutureBuilder<CardModel>(
               future: _future,
               builder: (context, snapshot) {
@@ -76,7 +75,6 @@ class _DesktopVersionState extends State<DesktopVersion> {
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: [
                         ImageLogoWidget(model),
-                        //   ImageLogoWidget(model ),
                         SizedBox(
                           width: MediaQuery.of(context).size.width,
                           child: Padding(
@@ -144,7 +142,6 @@ class _DesktopVersionState extends State<DesktopVersion> {
                                   'Email',
                                 ),
                                 icon: Image.asset('lib/icons/Icon (2).png'),
-                                //   icon: Image.network('https://i.ibb.co/4FJtJwX/ae.jpg'),
                                 style: ElevatedButton.styleFrom(
                                   iconColor: Colors.blue,
                                   backgroundColor: Colors.white,
@@ -214,7 +211,6 @@ class _DesktopVersionState extends State<DesktopVersion> {
                             },
                           ),
                         ),
-                        //   BottomBarWidget(model),
                       ],
                     ),
                   );
@@ -223,51 +219,6 @@ class _DesktopVersionState extends State<DesktopVersion> {
             ),
           ),
         ),
-        // bottomNavigationBar: FutureBuilder<CardModel>(
-        //   future: _future,
-        //   builder: (context, snapshot) {
-        //     if (!snapshot.hasData) return const SizedBox.shrink();
-        //     return AnimatedContainer(
-        //         duration: const Duration(milliseconds: 700),
-        //         //    curve: Curves.easeInOutSine,
-        //         curve: Curves.bounceInOut,
-        //         height: showBtmApp ? 70 : 0,
-        //         child: BottomBarWidget(snapshot.data!, widget.repository));
-        //   },
-        // ),
-      ),
-    );
-  }
-}
-
-class ImageLogoWidget extends StatelessWidget {
-  const ImageLogoWidget(this.model, {super.key});
-  final CardModel model;
-
-  @override
-  Widget build(BuildContext context) {
-    final screenSize = MediaQuery.of(context).size;
-    // Calcula a proporção desejada com base no tamanho da tela
-    const aspectRatio = 317 / 317;
-    return ClipRRect(
-      child: Row(
-        //   mainAxisAlignment: MainAxisAlignment.center,
-        children: [
-          ClipRRect(
-            borderRadius: const BorderRadius.only(
-                topRight: Radius.circular(10), topLeft: Radius.circular(10)),
-            child: Image.network(
-                fit: BoxFit.fill,
-                model.picture,
-                //   fit: BoxFit.cover,
-                width: 317,
-                height: 300
-
-                //  width: kIsWeb ? 271 : null, // Largura específica para a web
-                // height: kIsWeb ? 271 : null, // Altura específica para a web
-                ),
-          ),
-        ],
       ),
     );
   }
@@ -332,8 +283,6 @@ class AboutInfoWidget extends StatelessWidget {
             const SizedBox(height: 2),
             SizedBox(
               width: MediaQuery.of(context).size.width,
-
-              // width: 250,
               child: Center(
                 child: Text(
                   model.interest,
@@ -345,15 +294,6 @@ class AboutInfoWidget extends StatelessWidget {
               ),
             ),
             const SizedBox(height: 30),
-            // SizedBox(
-            //   //width: 900,
-            //   //    height: MediaQuery.of(context).size.height,
-            //   //  height: MediaQuery.of(context).size.height,
-            //   child: Row(
-            //     //  mainAxisAlignment: MainAxisAlignment.start,
-            //     children: [BottomBarWidget(model, BusinessCardRepository())],
-            //   ),
-            // )
           ],
         ),
       ),

@@ -1,6 +1,6 @@
-import 'package:digital_business/src/business_card_repository.dart';
-import 'package:digital_business/src/card_model.dart';
-import 'package:digital_business/src/user_profile.dart';
+import 'package:digital_business/src/model/card_model.dart';
+import 'package:digital_business/src/repository/business_card_repository.dart';
+import 'package:digital_business/src/versions/app_version.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:mocktail/mocktail.dart';

@@ -1,6 +1,7 @@
-import 'package:digital_business/src/business_card_repository.dart';
-import 'package:digital_business/src/card_model.dart';
-import 'package:flutter/foundation.dart';
+import 'package:digital_business/src/model/card_model.dart';
+import 'package:digital_business/src/repository/business_card_repository.dart';
+import 'package:digital_business/src/versions/desktop_version.dart';
+import 'package:digital_business/src/widgets/imageLogoWidget.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
 import 'package:flutter_svg/flutter_svg.dart';
@@ -18,26 +19,6 @@ class UserProfile extends StatefulWidget {
   State<UserProfile> createState() => _UserProfileState();
 }
 
-// void checkPlatformAndOpenClass() {
-//   if (kIsWeb) {
-//     runApp(MaterialApp(
-//         home: DesktopVersion(repository: BusinessCardRepository())));
-//     print('Rodando na web');
-//   } else if (Platform.isAndroid || Platform.isIOS) {
-//     print('Rodando em um dispositivo móvel');
-//   } else if (Platform.isWindows) {
-//     runApp(MaterialApp(
-//         home: DesktopVersion(repository: BusinessCardRepository())));
-//     print('Rodando em um dispositivo Windows');
-//   } else if (Platform.isLinux) {
-//     print('Rodando em um dispositivo Linux');
-//   } else if (Platform.isMacOS) {
-//     print('Rodando em um dispositivo macOS');
-//   } else {
-//     print('Plataforma desconhecida');
-//   }
-//}
-
 class _UserProfileState extends State<UserProfile> {
   late final Future<CardModel> _future;
 
@@ -48,8 +29,6 @@ class _UserProfileState extends State<UserProfile> {
     super.initState();
 
     _future = widget.repository.getUser();
-    //checkPlatformAndOpenClass();
-
     _scrollController.addListener(
       () {
         if (_scrollController.position.userScrollDirection ==
@@ -89,7 +68,6 @@ class _UserProfileState extends State<UserProfile> {
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
                   ImageLogoWidget(model),
-                  //   ImageLogoWidget(model ),
                   const SizedBox(height: 12),
                   SizedBox(
                     width: MediaQuery.of(context).size.width,
@@ -158,7 +136,6 @@ class _UserProfileState extends State<UserProfile> {
                             'Email',
                           ),
                           icon: Image.asset('lib/icons/Icon (2).png'),
-                          //   icon: Image.network('https://i.ibb.co/4FJtJwX/ae.jpg'),
                           style: ElevatedButton.styleFrom(
                             iconColor: Colors.blue,
                             backgroundColor: Colors.white,
@@ -204,7 +181,6 @@ class _UserProfileState extends State<UserProfile> {
                     ],
                   ),
                   AboutInfoWidget(model),
-                  //   BottomBarWidget(model),
                 ],
               ),
             );
@@ -221,197 +197,6 @@ class _UserProfileState extends State<UserProfile> {
               height: showBtmApp ? 70 : 0,
               child: BottomBarWidget(snapshot.data!, widget.repository));
         },
-      ),
-    );
-  }
-}
-
-class ImageLogoWidget extends StatelessWidget {
-  const ImageLogoWidget(this.model, {super.key});
-  final CardModel model;
-
-  @override
-  Widget build(BuildContext context) {
-    final screenSize = MediaQuery.of(context).size;
-    // Calcula a proporção desejada com base no tamanho da tela
-    const aspectRatio = 317 / 317;
-    return ClipRRect(
-      borderRadius: const BorderRadius.only(
-          topRight: Radius.circular(10), topLeft: Radius.circular(10)),
-      child: Row(
-        mainAxisAlignment: MainAxisAlignment.center,
-        children: [
-          Flexible(
-            fit: FlexFit.tight,
-            child: Image.network(
-              fit: BoxFit.fitWidth, scale: 5, cacheHeight: 750,
-
-              model.picture,
-              //   fit: BoxFit.cover,
-              width: kIsWeb ? 317 : null, // Largura específica para a web
-              height: kIsWeb ? 317 : null, // Altura específica para a web
-            ),
-          ),
-        ],
-      ),
-    );
-  }
-}
-
-class AboutInfoWidget extends StatelessWidget {
-  AboutInfoWidget(this.model, {super.key});
-  final CardModel model;
-  final controller = ScrollController();
-
-  @override
-  Widget build(BuildContext context) {
-    return Center(
-      child: Padding(
-        padding: const EdgeInsets.only(top: 30),
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.center,
-          children: [
-            SizedBox(
-              width: MediaQuery.of(context).size.width,
-              child: Center(
-                child: Text(
-                  'About',
-                  style: GoogleFonts.inter(
-                    color: Colors.white,
-                    fontSize: 16,
-                    fontWeight: FontWeight.bold,
-                  ),
-                ),
-              ),
-            ),
-            const SizedBox(height: 2),
-            SizedBox(
-              width: MediaQuery.of(context).size.width,
-
-              // width: 250,
-              child: Center(
-                child: SizedBox(
-                  width: 290,
-                  child: Text(
-                    model.about,
-                    style: GoogleFonts.inter(
-                      color: const Color.fromARGB(207, 193, 204, 202),
-                      fontSize: 10.24,
-                    ),
-                  ),
-                ),
-              ),
-            ),
-            const SizedBox(height: 15),
-            Center(
-              child: Center(
-                child: Text(
-                  'Interests',
-                  style: GoogleFonts.inter(
-                    color: Colors.white,
-                    fontSize: 16,
-                    fontWeight: FontWeight.w700,
-                  ),
-                ),
-              ),
-            ),
-            const SizedBox(height: 2),
-            SizedBox(
-              width: MediaQuery.of(context).size.width,
-
-              // width: 250,
-              child: Center(
-                child: SizedBox(
-                  width: 290,
-                  child: Text(
-                    model.interest,
-                    style: GoogleFonts.inter(
-                      color: const Color.fromARGB(207, 193, 204, 202),
-                      fontSize: 10.24,
-                    ),
-                  ),
-                ),
-              ),
-            ),
-            const SizedBox(height: 30)
-          ],
-        ),
-      ),
-    );
-  }
-}
-
-class BottomBarWidget extends StatelessWidget {
-  const BottomBarWidget(this.model, this.repository, {super.key});
-  final CardModel model;
-  final BusinessCardRepository repository;
-
-  @override
-  Widget build(BuildContext context) {
-    return BottomAppBar(
-      notchMargin: 8.0,
-      shape: const CircularNotchedRectangle(),
-      color: const Color(0xff161619),
-      child: Padding(
-        padding: const EdgeInsets.all(10),
-        child: Row(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: [
-            if (model.twitter.isNotEmpty)
-              MouseRegion(
-                key: const ValueKey('twitter-button'),
-                cursor: SystemMouseCursors.click,
-                child: GestureDetector(
-                  onTap: () => repository.launchLink(model.twitter),
-                  child: SvgPicture.asset('lib/icons/twitter.svg'),
-                ),
-              ),
-            if (model.facebook.isNotEmpty) ...[
-              const Padding(padding: EdgeInsets.all(10)),
-              MouseRegion(
-                key: const ValueKey('facebook-button'),
-                cursor: SystemMouseCursors.click,
-                child: GestureDetector(
-                  onTap: () => repository.launchLink(model.facebook),
-                  child: SvgPicture.asset('lib/icons/Facebook.svg'),
-                ),
-              ),
-            ],
-            if (model.instagram.isNotEmpty) ...[
-              const Padding(padding: EdgeInsets.all(10)),
-              MouseRegion(
-                key: const ValueKey('instagram-button'),
-                cursor: SystemMouseCursors.click,
-                child: GestureDetector(
-                  onTap: () => repository.launchLink(model.instagram),
-                  child: SvgPicture.asset('lib/icons/Instagram.svg'),
-                ),
-              ),
-            ],
-            if (model.linkedin.isNotEmpty) ...[
-              const Padding(padding: EdgeInsets.all(10)),
-              MouseRegion(
-                key: const ValueKey('linkedin-button'),
-                cursor: SystemMouseCursors.click,
-                child: GestureDetector(
-                  onTap: () => repository.launchLink(model.linkedin),
-                  child: SvgPicture.asset('lib/icons/LinkedinIcon.svg'),
-                ),
-              ),
-            ],
-            if (model.github.isNotEmpty) ...[
-              const Padding(padding: EdgeInsets.all(10)),
-              MouseRegion(
-                key: const ValueKey('github-button'),
-                cursor: SystemMouseCursors.click,
-                child: GestureDetector(
-                  onTap: () => repository.launchLink(model.github),
-                  child: SvgPicture.asset('lib/icons/Github.svg'),
-                ),
-              ),
-            ],
-          ],
-        ),
       ),
     );
   }
