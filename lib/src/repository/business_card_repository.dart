@@ -16,7 +16,7 @@ class BusinessCardRepository {
     var defaultId = 0;
     var userid = getCode ?? defaultId;
     var url = Uri.parse(
-        'https://5d85ccfb1e61af001471bf60.mockapi.io/businessCard/$userid');
+        'https://bielpdev.github.io/digital_business/business_card.json');
 
     var response = await http.get(url);
     if (response.statusCode == 200) {
